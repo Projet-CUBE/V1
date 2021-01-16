@@ -61,26 +61,26 @@ class AdminController extends Controller
         }
 
         $this->set($d);
-        $this->render("listeCompte");
+        $this->render("other/listOther");
     }
 
    
  
 
-    public function listeUtilisateur()
-    {
-        $this->filterAndGetUser(2);
+    // public function listeUtilisateur()
+    // {
+    //     $this->filterAndGetUser(2);
 
-        $compteModele = $this->loadModel("Compte");
+    //     $compteModele = $this->loadModel("Compte");
 
-        $users = $compteModele->find([
-            "orderby" => "compte.identifiant"
-        ], "TAB");
+    //     $users = $compteModele->find([
+    //         "orderby" => "compte.identifiant"
+    //     ], "TAB");
 
-        $this->set(["users" => $users]);
+    //     $this->set(["users" => $users]);
 
-        $this->render("listeUtilisateur");
-    }
+    //     $this->render("listeUtilisateur");
+    // }
 
     
     // public function deleteUtilisateur($id)

@@ -19,16 +19,16 @@ class AuthController extends Controller
                 $this->render("login");
             } else {
                 Session::login($user, $account["password"], $account["typeCompte"]);
-                $this->redirect("/admin/listeChampionnat");
+                $this->redirect("/other/listOther");
             }
         }
     }
 
-    function logout()
-    {
-        Session::destruct();
-        $this->redirect("/championnat/liste");
-    }
+    // function logout()
+    // {
+    //     Session::destruct();
+    //     $this->redirect("/championnat/liste");
+    // }
 }
 
 ?>
