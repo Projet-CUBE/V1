@@ -3,7 +3,7 @@
 // Le formulaire a été soumis
 if (isset($_POST['pseudo']) && isset($_POST['password']))
 {
-    $query = getPdo()->prepare('SELECT * FROM membres WHERE pseudo = :pseudo LIMIT 1');
+    $query = getPdo()->prepare('SELECT * FROM compte WHERE pseudo = :pseudo LIMIT 1');
     $query->execute(['pseudo' => $_POST['pseudo']]);
     $result = $query->fetch();
 
@@ -58,7 +58,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password']))
 
     <button type="submit" class="btn btn-primary mt-3">Envoyer</button>
 </form>
-
+<?php echo("Coucou" . $member->get('pseudo') . ""); ?>
 <?php else: ?>
 
 <div class="alert alert-info">Vous êtes déjà connecté.</div>

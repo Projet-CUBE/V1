@@ -70,7 +70,7 @@ class Member
      */
     public static function pseudoIsAlreadyTaken(string $pseudo): bool
     {
-        $query = getPdo()->prepare('SELECT * FROM membres WHERE pseudo = :pseudo LIMIT 1');
+        $query = getPdo()->prepare('SELECT * FROM compte WHERE pseudo = :pseudo LIMIT 1');
         $query->execute(['pseudo' => $pseudo]);
 
         return $query->fetch() !== false;
@@ -84,7 +84,7 @@ class Member
      */
     public static function emailIsAlreadyTaken(string $email): bool
     {
-        $query = getPdo()->prepare('SELECT * FROM membres WHERE email = :email LIMIT 1');
+        $query = getPdo()->prepare('SELECT * FROM compte WHERE email = :email LIMIT 1');
         $query->execute(['email' => $email]);
 
         return $query->fetch() !== false;
@@ -140,7 +140,7 @@ class Member
     {
         // Les variables de session existent
         if (! empty($_SESSION['id']) && ! empty($_SESSION['pseudo'])) {
-            $query = getPdo()->prepare('SELECT * FROM membres WHERE id = :id LIMIT 1');
+            $query = getPdo()->prepare('SELECT * FROM compte WHERE id = :id LIMIT 1');
             $success = $query->execute(['id' => $_SESSION['id']]);
 
             // Le membre existe en BDD
@@ -161,7 +161,7 @@ class Member
 
         // L'ID et le Hash existent dans les cookies
         if (! empty($id) && ! empty($hash)) {
-            $query = getPdo()->prepare('SELECT * FROM membres WHERE id = :id LIMIT 1');
+            $query = getPdo()->prepare('SELECT * FROM compte WHERE id = :id LIMIT 1');
             $success = $query->execute(['id' => $id]);
             $member = $query->fetch();
 

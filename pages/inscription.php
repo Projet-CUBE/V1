@@ -28,23 +28,23 @@ if (isset($_POST['pseudo']) && isset($_POST['email']))
         $form->set('email', $_POST['email']);
     }
 
-    // Vérif mdp : il n'est pas vide
-    if (empty($_POST['mdp'])) {
-        $errors->set('mdp', "Le mot de passe est obligatoire");
+    // Vérif password : il n'est pas vide
+    if (empty($_POST['password'])) {
+        $errors->set('password', "Le mot de passe est obligatoire");
     }
-    // Vérif mdp : il est identique à la confirmation
-    else if ($_POST['mdp'] !== $_POST['mdp_confirm']) {
-        $errors->set('mdp', "Les deux mots de passes sont différents");
+    // Vérif password : il est identique à la confirmation
+    else if ($_POST['password'] !== $_POST['password_confirm']) {
+        $errors->set('password', "Les deux mots de passes sont différents");
     }
 
     // Aucune erreur dans notre formulaire,
     // on crée le membre en BDD
     if ($errors->count() === 0) {
-        $query = getPdo()->prepare('INSERT INTO membre (pseudo, mdp, email) VALUES (:pseudo, :pass, :email)');
+        $query = getPdo()->prepare('INSERT INTO compte (pseudo, password, email) VALUES (:pseudo, :pass, :email)');
 
         $query->execute([
             'pseudo' => $_POST['pseudo'],
-            'pass' => password_hash($_POST['mdp'], PASSWORD_DEFAULT),
+            'pass' => password_hash($_POST['password'], PASSWORD_DEFAULT),
             'email' => $_POST['email']
         ]);
 
@@ -84,18 +84,18 @@ if (isset($_POST['pseudo']) && isset($_POST['email']))
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="form-group">
-                <label for="mdp">Mot de passe</label>
-                <input type="password" name="mdp" id="mdp" class="form-control" required>
-                <?php if ($errors->has('mdp')): ?>
-                    <p class="text-danger"><?= $errors->get('mdp') ?></p>
+                <label for="password">Mot de passe</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+                <?php if ($errors->has('password')): ?>
+                    <p class="text-danger"><?= $errors->get('password') ?></p>
                 <?php endif; ?>
             </div>
         </div>
 
         <div class="col-12 col-sm-6">
             <div class="form-group">
-                <label for="mdp_confirm">Mot de passe (confirmation)</label>
-                <input type="password" name="mdp_confirm" id="mdp_confirm" class="form-control" required>
+                <label for="password_confirm">Mot de passe (confirmation)</label>
+                <input type="password" name="password_confirm" id="password_confirm" class="form-control" required>
             </div>
         </div>
     </div>
