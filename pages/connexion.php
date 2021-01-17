@@ -58,7 +58,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password']))
 
     <button type="submit" class="btn btn-primary mt-3">Envoyer</button>
 </form>
-<?php echo("Coucou" . $member->get('pseudo') . ""); ?>
+
 <?php else: ?>
 
 <div class="alert alert-info">Vous êtes déjà connecté.</div>
