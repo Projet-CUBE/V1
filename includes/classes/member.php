@@ -98,7 +98,7 @@ class Member
      */
     public static function createSession(array $infos): void
     {
-        $_SESSION['id'] = $infos['id'];
+        $_SESSION['id_compte'] = $infos['id_compte'];
         $_SESSION['pseudo'] = $infos['pseudo'];
     }
 
@@ -114,7 +114,7 @@ class Member
         $duration = 60 * 60 * 24 * 30;
         $expiration = time() + $duration;
 
-        setcookie('member_id', $infos['id'], $expiration, null, null, false, true);
+        setcookie('member_id', $infos['id_compte'], $expiration, null, null, false, true);
         setcookie('member_hash', self::generateHash($infos), $expiration, null, null, false, true);
     }
 
@@ -130,7 +130,7 @@ class Member
     protected static function generateHash(array $infos): string
     {
         // Explication : https://www.php.net/manual/fr/function.sha1.php
-        return sha1($infos['id'] . $infos['pseudo'] . self::$salt);
+        return sha1($infos['id_compte'] . $infos['pseudo'] . self::$salt);
     }
 
     /**
@@ -139,9 +139,9 @@ class Member
     protected function getFromSession(): void
     {
         // Les variables de session existent
-        if (! empty($_SESSION['id']) && ! empty($_SESSION['pseudo'])) {
-            $query = getPdo()->prepare('SELECT * FROM compte WHERE id = :id LIMIT 1');
-            $success = $query->execute(['id' => $_SESSION['id']]);
+        if (! empty($_SESSION['id_compte']) && ! empty($_SESSION['pseudo'])) {
+            $query = getPdo()->prepare('SELECT * FROM compte WHERE id_compte = :id_compte LIMIT 1');
+            $success = $query->execute(['id_compte' => $_SESSION['id_compte']]);
 
             // Le membre existe en BDD
             if ($success) {
@@ -161,8 +161,8 @@ class Member
 
         // L'ID et le Hash existent dans les cookies
         if (! empty($id) && ! empty($hash)) {
-            $query = getPdo()->prepare('SELECT * FROM compte WHERE id = :id LIMIT 1');
-            $success = $query->execute(['id' => $id]);
+            $query = getPdo()->prepare('SELECT * FROM compte WHERE id_compte = :id_compte LIMIT 1');
+            $success = $query->execute(['id_compte' => $id]);
             $member = $query->fetch();
 
             // Le membre existe en BDD et le hash fourni est valide
