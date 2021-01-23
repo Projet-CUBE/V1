@@ -26,7 +26,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password']))
         if (isset($_POST['remember'])) {
             Member::createCookie($result);
         }
-
+        
         // On redirige sur la page Profil
         header('Location: index.php?page=profil');
         exit;

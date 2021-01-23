@@ -74,6 +74,9 @@ $form = new Form();
 require 'classes/errors.php';
 $errors = new Errors();
 
+require 'classes/post.php';
+$post = new post();
+
 /**
  * Retourne la page courante depuis la variable d'URL $_GET
  *
