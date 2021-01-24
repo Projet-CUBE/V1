@@ -51,4 +51,20 @@
         }
         echo "</table>";
     }
+
+    public function insertPosts()
+    {
+        //
+        $query = getPdo()->prepare('INSERT INTO post (titre, sous_titre, contenu, publie, date_publication, date_derniere_modification, label, FK_id_membre) 
+                                     VALUES (:titre, :sous_titre, :contenu, :publie, NOW(), NOW(), :label, :FK_id_membre)');
+        
+        $query->execute([
+            'titre' => "Test 1",
+            'sous_titre' => "Hello World",
+            'contenu' => "Lorem Ipsum",
+            'publie' => 1,
+            'label' => "Liorem",
+            'FK_id_membre' => $_SESSION['id_compte']
+        ]);
+    }
 }
