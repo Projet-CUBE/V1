@@ -5,3 +5,10 @@
 Bonjour
     <?= $post->getPosts()?>
 </p>
+
+<!-- à décommenté si ont veut insert quelquechose
+ 
+<p>
+Bonjour
+    <?= $post->insertPosts()?>
+</p> -->
