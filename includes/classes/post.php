@@ -67,4 +67,31 @@
             'FK_id_membre' => $_SESSION['id_compte']
         ]);
     }
+
+    public function updatePosts()
+    {
+        
+        $query = getPdo()->prepare('UPDATE post 
+        SET titre = :titre, sous_titre = :sous_titre, contenu = :contenu, date_derniere_modification = NOW(), label = :label
+        WHERE UUID_post = :UUID_post');
+
+        $query->execute([
+        'titre' => "Update",
+        'sous_titre' => "Vello Porld",
+        'contenu' => "Zorem Vpsum",
+        'label' => "Uiorem",
+        'UUID_post' => 3
+        ]);
+    }
+
+    public function deletePosts()
+    {
+        
+        $query = getPdo()->prepare('DELETE FROM post 
+        WHERE UUID_post = :UUID_post');
+
+        $query->execute([
+        'UUID_post' => 3
+        ]);
+    }
 }
