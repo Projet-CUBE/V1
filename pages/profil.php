@@ -5,3 +5,23 @@
 Bonjour
     <?= $post->getPosts()?>
 </p>
+
+<!-- à décommenté si ont veut insert quelquechose
+<p>
+Bonjour
+    < ?= $post->insertPosts()?>
+</p> -->
+
+
+<!-- à décommenté si ont veut update quelquechose
+<p>
+Bonjour
+    < ?= $post->updatePosts()?>
+</p> -->
+
+
+<!-- à décommenté si ont veut delete quelquechose
+<p>
+Bonjour
+    < ?=$post->deletePosts()?>
+</p> -->
