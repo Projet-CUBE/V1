@@ -77,6 +77,9 @@ $errors = new Errors();
 require 'classes/post.php';
 $post = new post();
 
+require 'classes/commentaire.php';
+$commentaire = new commentaire();
+
 /**
  * Retourne la page courante depuis la variable d'URL $_GET
  *
