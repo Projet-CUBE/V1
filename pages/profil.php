@@ -25,3 +25,10 @@ Bonjour
 Bonjour
     < ?=$post->deletePosts()?>
 </p> -->
+
+<!-- à décommenté si ont veut insert un Commentaire 
+<p>
+Bonjour
+    < ?= $commentaire->insertCommentaire(1 ,$member->get('pseudo')) ?>
+</p> 
+-->
