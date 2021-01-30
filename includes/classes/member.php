@@ -38,6 +38,25 @@ class Member
     }
 
     /**
+     * Méthode permettant de vérifier si un membre est bani
+     *
+     * @param 
+     * @return 
+     */
+    public function estBani()
+    {
+        $query = getPdo()->prepare('UPDATE membre
+            SET membre = (CASE 
+            WHEN estBani = 0 THEN estBani + 1 
+            WHEN estBani = 1 THEN estBani - 1 
+            ELSE estBani 
+            END)');
+        var_dump($query);
+
+        $query->execute();
+    }
+
+    /**
      * Le visiteur est connecté ?
      *
      * @return bool
