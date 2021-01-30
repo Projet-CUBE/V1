@@ -1,11 +1,14 @@
 <p>Bonjour <strong><?= $member->get('pseudo') ?></strong> !</p>
-<p>Bonjour <strong><?= $member->get('id_compte') ?></strong> !</p>
+<p>Id compte: <strong><?= $member->get('id_compte') ?></strong> !</p>
 
 <p>
 Bonjour
     <?= $post->getPosts()?>
 </p>
 
+<p>Favoris :
+    <?= $post->getFavoris()?>
+</p>
 <!-- à décommenté si ont veut insert quelquechose
 <p>
 Bonjour
