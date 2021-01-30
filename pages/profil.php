@@ -60,3 +60,9 @@ Bonjour
 Bonjour
     < ?=$categorie->deleteCategorie()?>
 </p> -->
+
+<!-- à décommenté si ont veut Bannir ou unBan un membre
+<p>
+Bonjour
+    < ?=$member->estBani()?>
+</p> -->
