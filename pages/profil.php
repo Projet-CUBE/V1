@@ -1,26 +1,34 @@
 <p>Bonjour <strong><?= $member->get('pseudo') ?></strong> !</p>
-<p>Bonjour <strong><?= $member->get('id_compte') ?></strong> !</p>
+<p>Id compte: <strong><?= $member->get('id_compte') ?></strong> !</p>
 
 <p>
 Bonjour
     <?= $post->getPosts()?>
 </p>
 
-<!-- à décommenté si ont veut insert quelquechose
+<p>Favoris :
+    <?= $post->getFavoris()?>
+    <!-- à décommenter pour update favoris)
+    < ?= $post->updateFavoris()?>
+    -->
+</p>
+
+
+<!-- à décommenté si ont veut créer un post
 <p>
 Bonjour
     < ?= $post->insertPosts()?>
 </p> -->
 
 
-<!-- à décommenté si ont veut update quelquechose
+<!-- à décommenté si ont veut update un post
 <p>
 Bonjour
     < ?= $post->updatePosts()?>
 </p> -->
 
 
-<!-- à décommenté si ont veut delete quelquechose
+<!-- à décommenté si ont veut delete un post
 <p>
 Bonjour
     < ?=$post->deletePosts()?>
