@@ -1,15 +1,14 @@
 <?php
 
 /**
- * Cette classe va nous permettre de gérer la connexion d'un membre,
- * de vérifier la session et les cookies et enfin
- * d'accéder aux informations du membre courant.
+ * Cette classe va nous permettre de gérer les favoris
+ * d'update le statut de celui-ci 
  */
 
 class favoris
 {
     /**
-     * Informations sur le membre connecté
+     * Informations sur les favoris
      *
      * @var array
      */
@@ -19,10 +18,7 @@ class favoris
 
     public function getFavoris()
     {
-        // Aucune erreur dans notre formulaire,
-        // on crée le membre en BDD
-
-        // Attempt select query execution
+        
 
         $result = getPdo()->prepare('SELECT * FROM favoris');
         $result->execute();
@@ -50,26 +46,16 @@ class favoris
 
     public function updateFavoris()
     {
-        // $result = getPdo()->prepare('SELECT * FROM favoris');
-        // $result->execute();
-        // while ($row = $result->fetch()) {
-        //     if ($row['favoris'] === false || null) {
-        //         $query = getPdo()->prepare('UPDATE favoris
-        // SET id_post = :id_post, id_membre = :id_membre, favoris = FALSE, plus_tard = :plus_tard
-        // WHERE UUID = :UUID');
-        //     }
-        //     return ($query);
-        // }
+        $result = getPdo()->prepare('SELECT * FROM favoris');
+        $result->execute();
         $query = getPdo()->prepare('UPDATE favoris
-        SET id_post = :id_post, id_membre = :id_membre, favoris = FALSE, plus_tard = :plus_tard
-        WHERE UUID = :UUID');
-        
-        $query->execute([
-            'UUID' => 1,
-            'id_post' => 1,
-            'id_membre' => 3,
-            'favoris' => "false",
-            'plus_tard' => "false"
-        ]);
+            SET favoris = (CASE 
+            WHEN favoris = 0 THEN favoris + 1 
+            WHEN favoris = 1 THEN favoris - 1 
+            ELSE favoris 
+            END)');
+        var_dump($query);
+
+        $query->execute();
     }
 }
