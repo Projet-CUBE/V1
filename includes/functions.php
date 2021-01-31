@@ -83,6 +83,9 @@ $commentaire = new commentaire();
 require 'classes/categorie.php';
 $categorie = new categorie();
 
+require 'classes/droit.php';
+$droit = new droit();
+
 /**
  * Retourne la page courante depuis la variable d'URL $_GET
  *

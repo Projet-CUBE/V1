@@ -66,3 +66,15 @@ Bonjour
 Bonjour
     < ?=$member->estBani()?>
 </p> -->
+
+<!-- à décommenté si ont veut ajouter un droit à un membre
+<p>
+Bonjour
+    < ?=$droit->insertDroit()?>
+</p> -->
+
+<!-- à décommenté si ont veut Update un droit à un membre
+<p>
+Bonjour
+    < ?=$droit->updateCategorie()?>
+</p> -->
