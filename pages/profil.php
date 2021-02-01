@@ -7,12 +7,19 @@ Bonjour
 </p>
 
 <p>Favoris :
-    <?= $post->getFavoris()?>
+    <?= $favoris->getFavoris()?>
     <!-- à décommenter pour update favoris)
     < ?= $post->updateFavoris()?>
     -->
 </p>
 
+
+<p>Later :
+    <?= $later->getLater()?>
+    <!-- à décommenter pour update le champ à regarder à plus tard)
+    < ?= $post->updateLater()?>
+    -->
+</p>
 
 <!-- à décommenté si ont veut créer un post
 <p>
