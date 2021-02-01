@@ -8,11 +8,11 @@
 class later
 {
     /**
-     * Informations sur les favoris
+     * Informations sur les à regarder à plus tard
      *
      * @var array
      */
-    public $favoris = [];
+    public $later = [];
 
 
 
