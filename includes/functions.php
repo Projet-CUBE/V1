@@ -86,6 +86,12 @@ $categorie = new categorie();
 require 'classes/droit.php';
 $droit = new droit();
 
+require 'classes/favoris.php';
+$favoris = new favoris();
+
+require 'classes/later.php';
+$later = new later();
+
 /**
  * Retourne la page courante depuis la variable d'URL $_GET
  *
