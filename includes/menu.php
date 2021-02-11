@@ -2,7 +2,7 @@
     <img src="../webroot/img/logo_site.png" height="90px" width="90px"/>
     <div class="container">
     
-        <a class="navbar-brand" href="#">Accueil</a>
+        <a class="navbar-brand" href="index.php">Accueil</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

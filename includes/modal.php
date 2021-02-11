@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Modal connexion-->
 <div class="modal fade" id="connexionModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -24,6 +24,7 @@
     </div>
 </div>
 
+<!-- Modal inscription-->
 <div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
