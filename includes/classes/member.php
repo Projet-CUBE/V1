@@ -21,6 +21,11 @@ class Member
      */
     private $logged = false;
 
+
+
+    private $banned = 0;
+    //isBanned?
+
     /**
      * Informations sur le membre connecté
      *
@@ -43,16 +48,14 @@ class Member
      * @param 
      * @return 
      */
-    public function estBani()
+    public function setBan()
     {
-        $query = getPdo()->prepare('UPDATE membre
-            SET membre = (CASE 
-            WHEN estBani = 0 THEN estBani + 1 
-            WHEN estBani = 1 THEN estBani - 1 
-            ELSE estBani 
+        $query = getPdo()->prepare('UPDATE compte
+            SET compte = (CASE 
+            WHEN estBanni = 0 THEN estBanni + 1 
+            WHEN estBanni = 1 THEN estBanni - 1 
+            ELSE estBanni 
             END)');
-        var_dump($query);
-
         $query->execute();
     }
 
@@ -64,6 +67,16 @@ class Member
     public function isLogged(): bool
     {
         return $this->logged;
+    }
+
+
+    public function isBanned($string){
+        $query = getPdo()->prepare('SELECT * FROM compte WHERE pseudo = :pseudo LIMIT 1');
+        $query->execute(['pseudo' => $string]);
+        $result = $query->fetch();
+        if ($result['estBanni'] === '1') {
+            echo "<div class="."alert alert-error".">T'es banni.</div>";
+        } 
     }
 
     /**

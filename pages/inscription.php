@@ -40,12 +40,13 @@ if (isset($_POST['pseudo']) && isset($_POST['email']))
     // Aucune erreur dans notre formulaire,
     // on crée le membre en BDD
     if ($errors->count() === 0) {
-        $query = getPdo()->prepare('INSERT INTO compte (pseudo, password, email) VALUES (:pseudo, :pass, :email)');
+        $query = getPdo()->prepare('INSERT INTO compte (pseudo, password, email, estBanni) VALUES (:pseudo, :pass, :email, :estBanni)');
 
         $query->execute([
             'pseudo' => $_POST['pseudo'],
             'pass' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-            'email' => $_POST['email']
+            'email' => $_POST['email'],
+            'estBanni' => 0
         ]);
 
         // On indique à notre page que l'inscription
