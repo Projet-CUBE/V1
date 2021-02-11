@@ -71,7 +71,7 @@ Bonjour
 <!-- à décommenté si ont veut Bannir ou unBan un membre
 <p>
 Bonjour
-    < ?=$member->estBani()?>
+    < ?=$member->setBan()?>
 </p> -->
 
 <!-- à décommenté si ont veut ajouter un droit à un membre
