@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <img src="../webroot/img/logo_site.png" height="90px" width="90px"/>
     <div class="container">
-        <a class="navbar-brand" href="#">Espace Membres</a>
+    
+        <a class="navbar-brand" href="#">Accueil</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,8 +15,8 @@
                     <li class="nav-item"><a class="nav-link" href="index.php?page=profil">Profil</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=deconnexion">Déconnexion</a></li>
                 <?php else: ?>
-                    <li class="nav-item"><a class="nav-link" href="index.php?page=connexion">Connexion</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php?page=inscription">Inscription</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=connexion" data-bs-toggle="modal" data-bs-target="#connexionModal">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=inscription" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Inscription</a></li>
                 <?php endif; ?>
             </ul>
         </div>
