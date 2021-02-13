@@ -46,6 +46,21 @@ return [
             'title' => 'Gestion des comptes',
             'protected' => true,
         ],
+        'commentaire' => [
+            'file' => 'commentaire.php',
+            'title' => 'Commentaire',
+            'protected' => true,
+        ],
+        'update' => [
+            'file' => 'update.php',
+            'title' => 'Update',
+            'protected' => true,
+        ],
+        'delete' => [
+            'file' => 'delete.php',
+            'title' => 'Delete',
+            'protected' => true,
+        ],
         '404' => [
             'file' => '404.php',
             'title' => 'Page introuvable',
