@@ -31,6 +31,11 @@ return [
             'title' => 'Profil',
             'protected' => true,
         ],
+        'accueil' => [
+            'file' => 'accueil.php',
+            'title' => 'Accueil',
+            'protected' => true,
+        ],
         '404' => [
             'file' => '404.php',
             'title' => 'Page introuvable',

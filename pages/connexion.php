@@ -1,20 +1,5 @@
 <?php
 
-
-
-
-
-
-
-
-//  while ($row = $queryBannedUser->fetch()) {
-//     if ($row['estBanni'] === 1){
-//         $errors->set('pseudo', 'BANNED');
-//         $form->set('pseudo', $_POST['pseudo']);
-//     }
-// }
-
-
 // Le formulaire a été soumis
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
     $query = getPdo()->prepare('SELECT * FROM compte WHERE pseudo = :pseudo LIMIT 1');
