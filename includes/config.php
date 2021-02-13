@@ -36,6 +36,11 @@ return [
             'title' => 'Accueil',
             'protected' => true,
         ],
+        'statistique' => [
+            'file' => 'statistique.php',
+            'title' => 'Statistique',
+            'protected' => true,
+        ],
         '404' => [
             'file' => '404.php',
             'title' => 'Page introuvable',

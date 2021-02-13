@@ -11,6 +11,7 @@
             <ul class="navbar-nav">
                 <?php if ($member->isLogged()): ?>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=accueil">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=statistique">Statistique</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=profil">Profil</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=deconnexion">Déconnexion</a></li>
                 <?php else: ?>
