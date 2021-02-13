@@ -41,6 +41,11 @@ return [
             'title' => 'Statistique',
             'protected' => true,
         ],
+        'gestion-comptes' => [
+            'file' => 'gestion-comptes.php',
+            'title' => 'Gestion des comptes',
+            'protected' => true,
+        ],
         '404' => [
             'file' => '404.php',
             'title' => 'Page introuvable',
