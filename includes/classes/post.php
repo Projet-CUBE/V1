@@ -46,6 +46,31 @@ class post
             echo "<td>" . $row['date_publication'] . "</td>";
             echo "<td>" . $row['date_derniere_modification'] . "</td>";
             echo "<td>" . $row['label'] . "</td>";
+
+
+            // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
+            
+            // print "<td>" . '<a href="view.php?id='. $row['UUID_post'].'" class="buttonize">Commentaire / Update / Delete </a>' . "</td>"; // à partir de l'HyperLink on prend l'UUID_post et on peut Commentaire / Update / Delete un post
+           
+           
+           
+
+           // Autre Solution  
+           // ? >
+            // <td><button type="submit"  id="" title="" onClick="high('<?php echo $row['UUID_post'];? >')"></td>
+
+            
+            // <script type="text/javascript">
+            //     function high(id)
+            //     {
+            //             alert(id);
+            //     }
+            // </script>
+
+            // <?php
+
+
+
             echo "</tr>";
         }
         echo "</table>";
