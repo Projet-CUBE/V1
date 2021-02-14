@@ -85,7 +85,7 @@ class droit
 
         $query->execute([
         'statut' => $statut,
-        'FK_id_membre' => var_dump ($queryId_compte)
+        'FK_id_membre' => $queryId_compte
         ]);
         
     }
