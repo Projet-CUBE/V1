@@ -22,11 +22,14 @@
             $max = sizeof($droit->getDroit());
             for($i = 0; $i < $max;$i++)
             {
-                ?>
-                <option value="<?= $droit->getDroit()[$i]?>"> 
-                <?= $droit->getDroit()[$i] ?> 
-                </option>
-                <?php } ?>
+            ?>
+            
+            <option value="<?= $droit->getDroit()[$i]?>"> 
+            <?= $droit->getDroit()[$i] ?> 
+            </option>
+            
+      <?php } ?>
+      
       </select>
    </p>
    
