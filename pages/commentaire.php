@@ -1,1 +1,6 @@
-<?php echo $_POST['commentaire']; ?>
+<?php 
+
+echo $_POST['commentaire']; 
+
+?>
+

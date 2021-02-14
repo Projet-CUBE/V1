@@ -46,6 +46,11 @@ return [
             'title' => 'Gestion des comptes',
             'protected' => true,
         ],
+        'comptes-changer' => [
+            'file' => 'comptes-changer.php',
+            'title' => 'Comptes changé',
+            'protected' => true,
+        ],
         'commentaire' => [
             'file' => 'commentaire.php',
             'title' => 'Commentaire',
