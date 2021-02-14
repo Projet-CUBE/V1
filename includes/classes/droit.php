@@ -73,12 +73,13 @@ class droit
     {
 
         $queryId_compte = getPdo()->prepare('SELECT id_compte FROM compte 
-        WHERE pseudo = :pseudo');
+        WHERE pseudo = :pseudo LIMIT 1');
 
         $queryId_compte->execute([
             'pseudo' => $pseudo
         ]);   
 
+        $Id_compte = $queryId_compte->fetch();
 
         $query = getPdo()->prepare('UPDATE droit 
         SET statut = :statut
@@ -86,7 +87,7 @@ class droit
 
         $query->execute([
         'statut' => $statut,
-        'FK_id_membre' => $queryId_compte
+        'FK_id_membre' => $Id_compte['id_compte']
         ]);
         
     }
