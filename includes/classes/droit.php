@@ -66,6 +66,7 @@ class droit
     /**
      * Update un Droit à une personne donnée
      *
+     * @param string $pseudo : Pseudo de la personne à update en droits
      * @param string $statut : Modérateur, Administrateur, Super-administrateur
      */
     public function updateDroit(string $pseudo, string $statut)
