@@ -29,7 +29,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
             Member::createCookie($result);
         } else {
             // On redirige sur la page Profil
-            header('Location: index.php?page=profil');
+            header('Location: index.php?page=accueil');
             exit;
         }
     }
