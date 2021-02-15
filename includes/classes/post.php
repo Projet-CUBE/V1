@@ -83,43 +83,45 @@ class post
         $result = getPdo()->prepare('SELECT * FROM post');
         $result->execute();
 
+        $i = 0;
         while ($row = $result->fetch()) {
 
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
             
             $UUID_post = $row['UUID_post'];
             
+            $i++;
+
+            if ($i===1) {
                 print '<div class="row">';
+            }
                     print '<div class="col-sm-6">';
                         print '<div class="card">';
-                        print '<img class="card-img-top" src="..." alt="Card image cap">';
-                                print '<div class="card-body">';
-                                    print '<h5 class="card-title">' . $row['titre']. '</h5>';
-                                    print '<p class="card-text">' . $row['contenu'] . '</p>';
-
-                                    print '<div class="card-body">';
-
-                                        print '<form action="index.php?page=commentaire" method="post"> 
-                                        <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
-                                        <input type="submit" value="Commentaire" /> 
-                                        </form>';
+                            print '<img class="card-img-top" src="..." alt="Card image cap">';
+                            print '<div class="card-body">';
+                                print '<h5 class="card-title">' . $row['titre']. '</h5>';
+                                print '<p class="card-text">' . $row['contenu'] . '</p>';
                             
-                                        print '<form action="index.php?page=update" method="post"> 
-                                        <input name="update" type="hidden" value="'. $UUID_post . '" />  
-                                        <input type="submit" value="Update" /> 
-                                        </form>';
-                            
-                                        print '<form action="index.php?page=delete" method="post">  
-                                        <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
-                                        <input type="submit" value="Delete" /> 
-                                        </form>';
-                                    print '</div>';
-                                print '</div>';
-                            print '</div>';
+                                    print '<form action="index.php?page=commentaire" method="post"> 
+                                    <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
+                                    <input type="submit" value="Commentaire" /> 
+                                    </form>';
+                        
+                                    print '<form action="index.php?page=update" method="post"> 
+                                    <input name="update" type="hidden" value="'. $UUID_post . '" />  
+                                    <input type="submit" value="Update" /> 
+                                    </form>';
+                        
+                                    print '<form action="index.php?page=delete" method="post">  
+                                    <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
+                                    <input type="submit" value="Delete" /> 
+                                    </form>';
+                                
+                            print '</div>';                          
                         print '</div>';
                     print '</div>';
+        }       
                 print '</div>';
-        }
     }
 
 
