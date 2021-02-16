@@ -100,8 +100,8 @@ class post
             }
                     print '<div class="col-sm-6">';
                         print '<div class="card">';
-                            print '<img class="card-img-top" src="..." alt="Card image cap">';  // print '<img class="card-img-top" src="' . $row['image'] . '" alt="Card image cap">';
-                            print '<div class="card-body">'; // print '<h5 class="card-title">' . $row['UUID_post'] . '</h5>';
+                            print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
+                            print '<div class="card-body">'; 
                                 print '<h5 class="card-title">' . 
                                 $pseudo['pseudo'] 
                                 . '</h5>';  
