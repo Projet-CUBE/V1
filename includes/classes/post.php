@@ -71,7 +71,6 @@ class post
         }
         echo "</table>";
     }
-
     
     public function getPostsCard()
     {
@@ -89,6 +88,10 @@ class post
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
             
             $UUID_post = $row['UUID_post'];
+
+
+            // Utilisation de this-> Sinon Uncaught error
+            $pseudo = $this->pseudo((int)$UUID_post); 
             
             $i++;
 
@@ -98,8 +101,10 @@ class post
                     print '<div class="col-sm-6">';
                         print '<div class="card">';
                             print '<img class="card-img-top" src="..." alt="Card image cap">';  // print '<img class="card-img-top" src="' . $row['image'] . '" alt="Card image cap">';
-                            print '<div class="card-body">';
-                                print '<h5 class="card-title">' . $row['titre']. '</h5>';
+                            print '<div class="card-body">'; // print '<h5 class="card-title">' . $row['UUID_post'] . '</h5>';
+                                print '<h5 class="card-title">' . 
+                                $pseudo['pseudo'] 
+                                . '</h5>';  
                                 print '<p class="card-text">' . $row['contenu'] . '</p>';
                             
                                     print '<form action="index.php?page=commentaire" method="post"> 
@@ -122,6 +127,19 @@ class post
                     print '</div>';
         }       
                 print '</div>';
+    }
+
+    public function pseudo(int $id_membre) : array
+    {
+        $query = getPdo()->prepare('SELECT pseudo FROM compte
+        INNER JOIN post 
+        ON compte.id_compte = post.FK_id_membre 
+        WHERE compte.id_compte = "' . $id_membre . '"
+        LIMIT 1');
+
+        $query->execute();
+
+        return $query->fetch();
     }
 
     public function insertPosts()
@@ -159,10 +177,10 @@ class post
     public function deletePosts(string $_UUID_post)
     {
         $select = getPdo()->prepare('SELECT * FROM post
-        WHERE UUID_image = :UUID_image');
-        
+        WHERE UUID_post = :UUID_post');
+
         $select->execute([
-            'UUID_image' => $_UUID_post,
+            'UUID_post' => $_UUID_post,
         ]);
         
         $row = $result->fetch(PDO::FETCH_ASSOC);

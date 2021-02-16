@@ -44,13 +44,15 @@ else
 }
 if (!isset($errorMsg)) 
 {
-    $query = getPdo()->prepare('INSERT INTO image (name, categorie_name, taille, date_mise_en_ligne) 
-    VALUES (:name, :categorie_name, :taille, NOW())');
+    $query = getPdo()->prepare('INSERT INTO post (titre, contenu, publie, date_publication, image, name_image) 
+    VALUES (:titre, :contenu, :publie, NOW(), :image, :name_image)');
 
     if ($query->execute([
-        'name' => $name,
-        'categorie_name' => $image_file,
-        'taille' => $size
+        'titre' => $name,
+        'contenu' => $contenu,
+        'publie' => 1,
+        ':image' => $image_file,
+        ':name_image' => $name
         ])) 
     {
         $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message

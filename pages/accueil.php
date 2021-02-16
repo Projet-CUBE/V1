@@ -119,7 +119,6 @@ Bonjour
     <div class="form-group">
     <label class="col-sm-3 control-label">Text</label>
         <div class="col-sm-6">
-        <!-- <input type="text" name="txt_name" class="form-control"/> -->
         <textarea type="text" name="txt_name" class="form-control" rows="3"></textarea>
         </div>
     </div>
