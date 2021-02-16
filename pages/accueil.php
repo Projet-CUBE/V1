@@ -1,26 +1,26 @@
 <p>Bonjour <strong><?= $member->get('pseudo') ?></strong> !</p>
 <p>Id compte: <strong><?= $member->get('id_compte') ?></strong> !</p>
 
-<p>
+<!-- <p>
 Bonjour
-    <?= $post->getPosts()?>
+    < ?= $post->getPosts()?>
 </p>
 
 <p>Favoris :
-    <?= $favoris->getFavoris()?>
-    <!-- à décommenter pour update favoris)
+    < ?= $favoris->getFavoris()?>
+    < !-- à décommenter pour update favoris)
     < ?= $post->updateFavoris()?>
-    -->
+    
 </p>
-
+-->
 <?= $post->getPostsCard()?>
 
-<p>Later :
-    <?= $later->getLater()?>
-    <!-- à décommenter pour update le champ à regarder à plus tard)
+<!-- <p>Later :
+    < ?= $later->getLater()?>
+    < !-- à décommenter pour update le champ à regarder à plus tard)
     < ?= $post->updateLater()?>
-    -->
-</p>
+
+</p> -->
 
 <!-- à décommenté si ont veut créer un post
 <p>

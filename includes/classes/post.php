@@ -158,6 +158,17 @@ class post
 
     public function deletePosts(string $_UUID_post)
     {
+        $select = getPdo()->prepare('SELECT * FROM post
+        WHERE UUID_image = :UUID_image ');
+        $select->execute([
+            'UUID_image' => $_UUID_post,
+        ]);
+        
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        unlink("C:\wamp64\www\V1-main\V1\upload/",$row['name']);
+
+        // ----------------------------------------------------------
 
         $query = getPdo()->prepare('DELETE FROM post 
         WHERE UUID_post = :UUID_post');
