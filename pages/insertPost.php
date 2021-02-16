@@ -44,13 +44,13 @@ else
 }
 if (!isset($errorMsg)) 
 {
-    $query = getPdo()->prepare('INSERT INTO post (titre, contenu, publie, date_publication, image, name_image) 
-    VALUES (:titre, :contenu, :publie, NOW(), :image, :name_image)');
+    $query = getPdo()->prepare('INSERT INTO post (contenu, publie, date_publication, FK_id_membre, image, name_image) 
+    VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image)');
 
     if ($query->execute([
-        'titre' => $name,
-        'contenu' => $contenu,
+        'contenu' => $name,
         'publie' => 1,
+        'FK_id_membre' => 2,
         ':image' => $image_file,
         ':name_image' => $name
         ])) 
