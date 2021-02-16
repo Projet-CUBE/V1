@@ -97,7 +97,7 @@ class post
             }
                     print '<div class="col-sm-6">';
                         print '<div class="card">';
-                            print '<img class="card-img-top" src="..." alt="Card image cap">';
+                            print '<img class="card-img-top" src="..." alt="Card image cap">';  // print '<img class="card-img-top" src="' . $row['image'] . '" alt="Card image cap">';
                             print '<div class="card-body">';
                                 print '<h5 class="card-title">' . $row['titre']. '</h5>';
                                 print '<p class="card-text">' . $row['contenu'] . '</p>';
@@ -156,14 +156,14 @@ class post
         ]);
     }
 
-    public function deletePosts()
+    public function deletePosts(string $_UUID_post)
     {
 
         $query = getPdo()->prepare('DELETE FROM post 
         WHERE UUID_post = :UUID_post');
 
         $query->execute([
-            'UUID_post' => 3
+            'UUID_post' => $_UUID_post
         ]);
     }
 
