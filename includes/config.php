@@ -51,6 +51,11 @@ return [
             'title' => 'Comptes changé',
             'protected' => true,
         ],
+        'evenements' => [
+            'file' => 'evenements.php',
+            'title' => 'Evènements',
+            'protected' => true,
+        ],
         'commentaire' => [
             'file' => 'commentaire.php',
             'title' => 'Commentaire',

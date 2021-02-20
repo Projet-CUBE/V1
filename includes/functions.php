@@ -92,6 +92,9 @@ $favoris = new favoris();
 require 'classes/later.php';
 $later = new later();
 
+require 'classes/month.php';
+$month = new month();
+
 
 /**
  * Retourne la page courante depuis la variable d'URL $_GET
