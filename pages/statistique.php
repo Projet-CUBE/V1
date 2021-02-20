@@ -18,6 +18,44 @@ while ($row = $select->fetch()) {
 
 $data1 = trim($data1,",");
 
+// -----------------------------------------------------------------------------------------------------
+
+$data2 = '';
+
+//database query to get data from the table
+$select2 = getPdo()->prepare('SELECT  
+                            MONTH( inserted_date ) AS MOIS, 
+                            COUNT( id_compte ) AS NOMBRE_COMPTES
+                            FROM statistics_compte
+                            GROUP BY MOIS');
+//execute query
+$select2->execute();
+
+while ($row = $select2->fetch()) {
+    $data2 = $data2 . '"'. $row['NOMBRE_COMPTES'].'",';
+}
+
+$data2 = trim($data2,",");
+
+// -----------------------------------------------------------------------------------------------------
+
+$data3 = '';
+
+//database query to get data from the table
+$select3 = getPdo()->prepare('SELECT  
+                            MONTH( inserted_date ) AS MOIS, 
+                            COUNT( UUID_post ) AS NOMBRE_POSTS
+                            FROM statistics_post
+                            GROUP BY MOIS');
+//execute query
+$select3->execute();
+
+while ($row = $select3->fetch()) {
+    $data3 = $data3 . '"'. $row['NOMBRE_POSTS'].'",';
+}
+
+$data3 = trim($data3,",");
+
 ?>
 
 
@@ -35,10 +73,24 @@ $data1 = trim($data1,",");
                     labels: ['JAN', 'FÉV', 'MAR', 'AVR', 'MAI', 'JUN', 'JUL', 'AOÛ', 'SEP', 'OCT', 'NOV', 'DÉC'],
                     datasets: 
                     [{
-                        label: 'Data 1',
+                        label: 'Commentaires par mois',
                         data: [<?php echo $data1; ?>],
                         backgroundColor: 'transparent',
                         borderColor:'rgba(255,99,132)',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Création de comptes par mois',
+                        data: [<?php echo $data2; ?>],
+                        backgroundColor: 'transparent',
+                        borderColor:'rgba(46,134,193)',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Posts par mois',
+                        data: [<?php echo $data3; ?>],
+                        backgroundColor: 'transparent',
+                        borderColor:'rgba(29,131,72)',
                         borderWidth: 3
                     },
                   ]
