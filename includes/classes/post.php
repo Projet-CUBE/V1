@@ -88,10 +88,8 @@ class post
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
             
             $UUID_post = $row['UUID_post'];
-
-
             // Utilisation de this-> Sinon Uncaught error
-            $pseudo = $this->pseudo((int)$UUID_post); 
+            $pseudo = $this->pseudoo((int)$UUID_post); 
             
             $i++;
 
@@ -102,9 +100,7 @@ class post
                         print '<div class="card">';
                             print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
                             print '<div class="card-body">'; 
-                                print '<h5 class="card-title">' . 
-                                $pseudo['pseudo'] 
-                                . '</h5>';  
+                                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';  
                                 print '<p class="card-text">' . $row['contenu'] . '</p>';
                             
                                     print '<form action="index.php?page=commentaire" method="post"> 
@@ -129,12 +125,13 @@ class post
                 print '</div>';
     }
 
-    public function pseudo(int $id_membre) : array
+
+    public function pseudoo(int $id_membre) : array
     {
         $query = getPdo()->prepare('SELECT pseudo FROM compte
         INNER JOIN post 
         ON compte.id_compte = post.FK_id_membre 
-        WHERE compte.id_compte = "' . $id_membre . '"
+        WHERE post.UUID_post = "' . $id_membre . '"
         LIMIT 1');
 
         $query->execute();
