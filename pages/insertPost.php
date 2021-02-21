@@ -50,7 +50,7 @@ if (!isset($errorMsg))
     if ($query->execute([
         'contenu' => $name,
         'publie' => 1,
-        'FK_id_membre' => 2,
+        'FK_id_membre' => $member->get('id_compte'),
         ':image' => $image_file,
         ':name_image' => $name
         ])) 
