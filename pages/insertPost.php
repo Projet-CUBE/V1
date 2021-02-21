@@ -61,3 +61,5 @@ if (!isset($errorMsg))
 }
 
 ?>
+
+<div class="alert alert-info">Vous avez inserer un commentaire, redirection en cours.</div>

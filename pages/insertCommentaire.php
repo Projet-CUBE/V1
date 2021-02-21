@@ -18,3 +18,6 @@
     header("refresh:3;index.php?page=accueil"); // Refresh 3 second and redirect to index.php
 
     ?>
+
+
+<div class="alert alert-info">Vous avez inserer un commentaire, redirection en cours.</div>

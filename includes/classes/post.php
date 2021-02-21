@@ -171,7 +171,7 @@ class post
         ]);
     }
 
-    public function deletePosts(string $_UUID_post)
+    public function deletePosts(int $_UUID_post)
     {
         $select = getPdo()->prepare('SELECT * FROM post
         WHERE UUID_post = :UUID_post');
@@ -180,9 +180,7 @@ class post
             'UUID_post' => $_UUID_post,
         ]);
         
-        $row = $result->fetch(PDO::FETCH_ASSOC);
-
-        unlink("C:\wamp64\www\V1-main\V1\upload/",$row['name']);
+        $row = $select->fetch();
 
         // -------------------------------------------------------------------------------------------------------------------------
 
