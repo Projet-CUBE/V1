@@ -5,9 +5,9 @@ $data1 = '';
 
 //database query to get data from the table
 $select = getPdo()->prepare('SELECT  
-                            MONTH( inserted_date ) AS MOIS, 
+                            MONTH( date_commentaire ) AS MOIS, 
                             COUNT( UUID_commentaire ) AS NOMBRE_COMMENTAIRE
-                            FROM statistics_commentaire
+                            FROM statistiques_commentaire
                             GROUP BY MOIS');
 //execute query
 $select->execute();
@@ -24,9 +24,9 @@ $data2 = '';
 
 //database query to get data from the table
 $select2 = getPdo()->prepare('SELECT  
-                            MONTH( inserted_date ) AS MOIS, 
+                            MONTH( date_compte ) AS MOIS, 
                             COUNT( id_compte ) AS NOMBRE_COMPTES
-                            FROM statistics_compte
+                            FROM statistiques_compte
                             GROUP BY MOIS');
 //execute query
 $select2->execute();
@@ -43,9 +43,9 @@ $data3 = '';
 
 //database query to get data from the table
 $select3 = getPdo()->prepare('SELECT  
-                            MONTH( inserted_date ) AS MOIS, 
+                            MONTH( date_post ) AS MOIS, 
                             COUNT( UUID_post ) AS NOMBRE_POSTS
-                            FROM statistics_post
+                            FROM statistiques_post
                             GROUP BY MOIS');
 //execute query
 $select3->execute();
