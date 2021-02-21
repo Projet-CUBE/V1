@@ -61,8 +61,7 @@ $data3 = trim($data3,",");
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
  
-      <div class="container">	
-      <h1>Commentaires par mois</h1>       
+      <div class="container">      
               <canvas id="chart" style="width: 100%; height: 65vh; background: #222; border: 1px solid #555652; margin-top: 10px;"></canvas>
 
               <script>
