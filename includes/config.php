@@ -9,7 +9,7 @@ return [
     'db_port' => 3306,
 
     // Configuration des pages
-    'default_page' => 'connexion',
+    'default_page' => 'accueil',
     'pages' => [
         'connexion' => [
             'file' => 'connexion.php', // Fichier contenant la page
