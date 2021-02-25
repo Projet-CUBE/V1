@@ -97,7 +97,9 @@ class post
                 print '<div class="row">';
             }
                     print '<div class="col-sm-6">';
-                        print '<div class="card">';
+                        print '<div class="card">'; // Possibilité de créer ses propres ressources privées, partagées ou publiques || 
+                                                    // donc : 3 radio Buttons : 1 privées 1 partagées 1 publiques                  ||
+                                                    // 
                             print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
                             print '<div class="card-body">'; 
                                 print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';  

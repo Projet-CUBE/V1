@@ -42,24 +42,22 @@ else
 {
     $errorMsg = "Upload JPG, JPEG, PNG & GIF Formate . . . . CHECK FILE EXTENSION"; // Error message file extension
 }
-if (!isset($errorMsg)) 
-{
-    $query = getPdo()->prepare('INSERT INTO post (contenu, publie, date_publication, FK_id_membre, image, name_image) 
-    VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image)');
 
-    if ($query->execute([
-        'contenu' => $name,
-        'publie' => 1,
-        'FK_id_membre' => $member->get('id_compte'),
-        ':image' => $image_file,
-        ':name_image' => $name
-        ])) 
-    {
-        $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message
-        header("refresh:3;index.php?page=accueil"); // Refresh 3 second and redirect to index.php
-    }
+$query = getPdo()->prepare('INSERT INTO post (contenu, publie, date_publication, FK_id_membre, image, name_image) 
+VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image)');
+
+if ($query->execute([
+    'contenu' => $name,
+    'publie' => 1,
+    'FK_id_membre' => $member->get('id_compte'),
+    ':image' => $image_file,
+    ':name_image' => $name
+    ])) 
+{
+    $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message
+    header("refresh:3;index.php?page=accueil"); // Refresh 3 second and redirect to index.php
 }
 
 ?>
 
-<div class="alert alert-info">Vous avez inserer un commentaire, redirection en cours.</div>
+<div class="alert alert-info">Vous avez inserer un Post, redirection en cours.</div>
