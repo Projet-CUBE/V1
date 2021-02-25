@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <?php if ($member->isLogged()): ?>
-                    <!-- <li class="nav-item"><a class="nav-link" href="index.php?page=accueil">Accueil</a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=accueil">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=statistique">Statistique</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=gestion-comptes">Gestion des comptes</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=evenements">Evènements</a></li>
