@@ -34,7 +34,7 @@ return [
         'accueil' => [
             'file' => 'accueil.php',
             'title' => 'Accueil',
-            'protected' => true,
+            'protected' => false,
         ],
         'statistique' => [
             'file' => 'statistique.php',
