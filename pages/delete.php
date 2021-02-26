@@ -1,5 +1,4 @@
 <?php 
-    echo $_POST['delete']; 
 
     $post->deletePosts((int)$_POST['delete']);
 
