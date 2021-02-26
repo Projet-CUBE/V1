@@ -1,6 +1,6 @@
 
 <div class="topnav" id="myTopnav">
-        <a class="navbar-brand" href="#">Espace Membres</a>
+        <a class="navbar-brand" href="#">Projet CUBE</a>
 
                 <?php if ($member->isLogged()): ?>
                     <a href="index.php?page=accueil">Accueil</a>

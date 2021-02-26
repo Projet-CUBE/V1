@@ -114,27 +114,29 @@ Bonjour
     </div>
 </form> -->
 
-<form method="post" class="form-horizontal" enctype="multipart/form-data" action="index.php?page=insertPost">
+<?php if($member->isLogged()): ?>
+    <form method="post" class="form-horizontal" enctype="multipart/form-data" action="index.php?page=insertPost">
 
-    <div class="form-group">
-    <label class="col-sm-3 control-label">Text</label>
-        <div class="col-sm-6">
-        <textarea type="text" name="txt_name" class="form-control" rows="3"></textarea>
+        <div class="form-group">
+        <label class="col-sm-3 control-label">Text</label>
+            <div class="col-sm-6">
+            <textarea type="text" name="txt_name" class="form-control" rows="3"></textarea>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-    <label class="col-sm-3 control-label">File</label>
-        <div class="col-sm-6">
-        <input type="file" name="txt_file" class="form-control">
+        <div class="form-group">
+        <label class="col-sm-3 control-label">File</label>
+            <div class="col-sm-6">
+            <input type="file" name="txt_file" class="form-control">
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9 m-t-15">
-            <input type="submit" name="btn_insert" class="btn btn-success" value="Insert">
-            <a href="index.php" class="btn btn-danger">Cancel</a>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9 m-t-15">
+                <input type="submit" name="btn_insert" class="btn btn-success" value="Insert">
+                <a href="index.php" class="btn btn-danger">Cancel</a>
+            </div>
         </div>
-    </div>
 
-</form>
+    </form>
+<?php endif; ?>
