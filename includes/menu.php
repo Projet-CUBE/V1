@@ -9,6 +9,7 @@
                     <a href="index.php?page=evenements">Evènements</a>
                     <a href="index.php?page=profil">Profil</a>
                     <a href="index.php?page=deconnexion">Déconnexion</a>
+                    <a href="index.php?page=profil"><?= $member->get('pseudo')?></a>
                 <?php else: ?>
                     <a href="index.php?page=accueil">Accueil</a>
                     <a href="index.php?page=connexion">Connexion</a>
