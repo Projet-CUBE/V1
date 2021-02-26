@@ -6,7 +6,7 @@
  * d'accéder aux informations du membre courant.
  */
 
-class post
+class post extends Member
 {
     /**
      * Informations sur le membre connecté
@@ -82,6 +82,8 @@ class post
         $result = getPdo()->prepare('SELECT * FROM post');
         $result->execute();
 
+        $member = new Member; //Variable member pour la vérification de connexion
+
         $i = 0;
         while ($row = $result->fetch()) {
 
@@ -97,28 +99,31 @@ class post
                 print '<div class="row">';
             }
                     print '<div class="col-sm-6">';
-                        print '<div class="card">'; // Possibilité de créer ses propres ressources privées, partagées ou publiques || 
-                                                    // donc : 3 radio Buttons : 1 privées 1 partagées 1 publiques                  ||
-                                                    // 
-                            print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
+                        print '<div class="card">';//Vérifier si le post est privé ou public
+                            if($row['image']){
+                                print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
+                            }
                             print '<div class="card-body">'; 
                                 print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';  
                                 print '<p class="card-text">' . $row['contenu'] . '</p>';
-                            
-                                    print '<form action="index.php?page=commentaire" method="post"> 
-                                    <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
-                                    <input type="submit" value="Commentaire" /> 
-                                    </form>';
-                        
-                                    print '<form action="index.php?page=update" method="post"> 
-                                    <input name="update" type="hidden" value="'. $UUID_post . '" />  
-                                    <input type="submit" value="Update" /> 
-                                    </form>';
-                        
-                                    print '<form action="index.php?page=delete" method="post">  
-                                    <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
-                                    <input type="submit" value="Delete" /> 
-                                    </form>';
+                                    if($member->isLogged()){
+                                        print '<form action="index.php?page=commentaire" method="post"> 
+                                        <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
+                                        <input type="submit" value="Commentaire" /> 
+                                        </form>';
+                                        
+                                        if($member->get('pseudo')==$pseudo['pseudo']){
+                                            print '<form action="index.php?page=update" method="post"> 
+                                            <input name="update" type="hidden" value="'. $UUID_post . '" />  
+                                            <input type="submit" value="Update" /> 
+                                            </form>';
+                                
+                                            print '<form action="index.php?page=delete" method="post">  
+                                            <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
+                                            <input type="submit" value="Delete" /> 
+                                            </form>';
+                                        }
+                                    }
                                 
                             print '</div>';                          
                         print '</div>';
