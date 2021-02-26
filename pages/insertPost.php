@@ -3,6 +3,22 @@
 
 // https://www.onlyxcodes.com/2018/04/how-to-upload-insert-update-and-delete.html#New%20File%20Upload%20Codes%20Logic
 
+//Récupération des valeurs des boutons radio Protection
+if($_POST['protection']=='private') {
+    $private = 1;
+    $public = 0;
+    $protected = 0;
+}elseif($_POST['protection']=='public') {
+    $private = 0;
+    $public = 1;
+    $protected = 0;
+}else {
+    $private = 0;
+    $public = 0;
+    $protected = 1;
+}
+
+//Image
 $name = $_REQUEST['txt_name']; // TextBox name "txt_name"
 
 $image_file = $_FILES['txt_file']['name'];
@@ -43,15 +59,18 @@ else
     $errorMsg = "Upload JPG, JPEG, PNG & GIF Formate . . . . CHECK FILE EXTENSION"; // Error message file extension
 }
 
-$query = getPdo()->prepare('INSERT INTO post (contenu, publie, date_publication, FK_id_membre, image, name_image) 
-VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image)');
+$query = getPdo()->prepare('INSERT INTO post (contenu, publie, date_publication, FK_id_membre, image, name_image, private, public, protected) 
+VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image, :private, :public, :protected)');
 
 if ($query->execute([
     'contenu' => $name,
     'publie' => 1,
     'FK_id_membre' => $member->get('id_compte'),
     ':image' => $image_file,
-    ':name_image' => $name
+    ':name_image' => $name,
+    ':private' => $private,
+    ':public' => $public,
+    ':protected' => $protected
     ])) 
 {
     $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message

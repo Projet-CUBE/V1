@@ -121,6 +121,7 @@ Bonjour
             </div>
         </div>
 
+        <!--Ajout de fichier-->
         <div class="form-group">
         <label class="col-sm-3 control-label">File</label>
             <div class="col-sm-6">
@@ -128,6 +129,27 @@ Bonjour
             </div>
         </div>
 
+        <!--Bouton radio pour le choix de protection du post-->
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="protection" id="publicRadio" value='public' checked="checked">
+            <label class="form-check-label" for="publicRadio">
+                Public
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="protection" id="privateRadio" value='private'>
+            <label class="form-check-label" for="privateRadio">
+                Privé
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="protection" id="protectedRadio" value='protected'>
+            <label class="form-check-label" for="protectedRadio">
+                Protegé
+            </label>
+        </div>
+
+        <!--Ajout + annulé-->
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9 m-t-15">
                 <input type="submit" name="btn_insert" class="btn btn-success" value="Insert">
