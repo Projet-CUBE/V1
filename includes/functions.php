@@ -9,7 +9,8 @@ session_start();
  *
  * @return array
  */
-function getConfig(): array {
+function getConfig(): array
+{
     // Variable de fonction statique
     // Explication : https://www.php.net/manual/fr/language.variables.scope.php#language.variables.scope.static
     static $config = null;
@@ -27,7 +28,8 @@ function getConfig(): array {
  *
  * @return PDO
  */
-function createPdo(): PDO {
+function createPdo(): PDO
+{
     $config = getConfig();
 
     try {
@@ -54,7 +56,8 @@ function createPdo(): PDO {
  *
  * @return PDO
  */
-function getPdo(): PDO {
+function getPdo(): PDO
+{
     static $pdo = null;
 
     // Si PDO n'a pas encore été initialisé on la crée
@@ -92,16 +95,28 @@ $favoris = new favoris();
 require 'classes/later.php';
 $later = new later();
 
-require 'classes/month.php';
+require 'classes/calendar/month.php';
 $month = new month();
 
+require 'classes/calendar/events.php';
+$events = new events();
+
+require 'classes/calendar/Event.php';
+$Event = new Event();
+
+require 'classes/calendar/eventValidator.php';
+$eventValidator = new eventValidator();
+
+
+require 'helper/boostrap.php';
 
 /**
  * Retourne la page courante depuis la variable d'URL $_GET
  *
  * @return array
  */
-function pageGetCurrent(): array {
+function pageGetCurrent(): array
+{
     // Lit la liste des pages depuis la config
     // Explication : https://www.php.net/manual/fr/language.types.array.php#example-67
     $pages = getConfig()['pages'];
@@ -123,6 +138,8 @@ function pageGetCurrent(): array {
 
 // Récupére les infos de la page courante
 $page = pageGetCurrent();
+
+
 
 // Si la page courante est protégée et que l'utilisateur n'est pas connecté,
 // on redirige vers la page de connexion

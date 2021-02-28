@@ -1,5 +1,4 @@
 <?php
-
 return [
     // Configuration de la base de données
     'db_host' => 'localhost',
@@ -54,6 +53,21 @@ return [
         'evenements' => [
             'file' => 'evenements.php',
             'title' => 'Evènements',
+            'protected' => true,
+        ],
+        'event' => [
+            'file' => '/calendar/event.php',
+            'title' => 'Event',
+            'protected' => true,
+        ],
+        'add_event' => [
+            'file' => '/calendar/add_event.php',
+            'title' => 'Ajouter un évènement',
+            'protected' => true,
+        ],
+        'edit_event' => [
+            'file' => '/calendar/edit_event.php',
+            'title' => 'Editer un évènement',
             'protected' => true,
         ],
         'commentaire' => [
