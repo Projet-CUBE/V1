@@ -1,5 +1,6 @@
 <?php 
 
+// Changer dans php.init la limite de 2MB à plus PUIS REDEMMARRER
 
 // https://www.onlyxcodes.com/2018/04/how-to-upload-insert-update-and-delete.html#New%20File%20Upload%20Codes%20Logic
 
@@ -26,7 +27,7 @@ elseif ($type == "image/jpg" || $type == "image/jpeg" || $type == "image/png" ||
     {
         if ($size < 5000000) // Check file size 5MB
         {
-            move_uploaded_file($temp, "C:\wamp64\www\V1\upload/" . $image_file); // move upload file temperory directory to your upload folder
+            move_uploaded_file($temp, "C:\wamp64\www\V1-main\V1\upload/" . $image_file); // move upload file temperory directory to your upload folder
         }
         else 
         {
