@@ -43,7 +43,7 @@ elseif ($type == "image/jpg" || $type == "image/jpeg" || $type == "image/png" ||
     {
         if ($size < 5000000) // Check file size 5MB
         {
-            move_uploaded_file($temp, "C:\wamp64\www\V1-main\V1\upload/" . $image_file); // move upload file temperory directory to your upload folder
+            move_uploaded_file($temp, "C:\wamp64\www\V1\upload/" . $image_file); // move upload file temperory directory to your upload folder
         }
         else 
         {

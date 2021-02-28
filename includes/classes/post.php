@@ -77,8 +77,6 @@ class post extends Member
 
         $member = new Member; //Variable member pour la vérification de connexion
 
-        
-
         //Si déconnecté
         if(!$member->isLogged()){
 
@@ -195,23 +193,42 @@ class post extends Member
 
     public function deletePosts(int $_UUID_post)
     {
-        $select = getPdo()->prepare('SELECT * FROM post
-        WHERE UUID_post = :UUID_post');
 
-        $select->execute([
-            'UUID_post' => $_UUID_post,
-        ]);
+        // $comTrue = getPdo()->prepare('SELECT * FROM post p INNER JOIN commentaire c ON p.UUID_post = c.id_post WHERE c.commentaire IS NOT NULL');
+        // $comTrue->execute();
+
+        // var_dump($comTrue);
+        // if($comTrue){
+
+        //     //Requete suppression commentaire lié
+        //     $com = getPdo()->prepare('DELETE c FROM commentaire c 
+        //     INNER JOIN post p ON c.id_post = p.UUID_post 
+        //     WHERE p.UUID_post = :UUID_post
+        //     AND c.id_post = :UUID_post');
+        //     $com->execute();
+
+        //     //suppression du post
+        //     $query = getPdo()->prepare('DELETE p FROM post p 
+        //     INNER JOIN commentaire c ON p.UUID_post = c.id_post
+        //     WHERE p.UUID_post = :UUID_post
+        //     AND c.id_post = :UUID_post');
+
+        //     $query->execute([
+        //         'UUID_post' => $_UUID_post
+        //     ]);
+
+        // }else{
+
+            $query = getPdo()->prepare('DELETE FROM post 
+            WHERE UUID_post = :UUID_post');
+
+            $query->execute([
+                'UUID_post' => $_UUID_post
+            ]);
+
         
-        $row = $select->fetch();
+        
 
-        // -------------------------------------------------------------------------------------------------------------------------
-
-        $query = getPdo()->prepare('DELETE FROM post 
-        WHERE UUID_post = :UUID_post');
-
-        $query->execute([
-            'UUID_post' => $_UUID_post
-        ]);
     }
 
 }
