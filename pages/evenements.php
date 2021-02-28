@@ -60,7 +60,7 @@
                      <a class="calendar__day" href="index.php?page=add_event&date=<?= $date->format('Y-m-d'); ?>"><?= $date->format('d'); ?></a>
                      <?php foreach ($eventsForDay as $event) : ?>
                         <div class="calendar__event">
-                           <?= (new Datetime($event['start']))->format('H:i')  ?> - <a href="index.php?page=edit_event&id=<?= $event['id']; ?>"><?= h($event['name']); ?></a>
+                           <?= (new Datetime($event['start']))->format('H:i')  ?> - <a href="index.php?page=edit_event&id=<?= $event['id_event']; ?>"><?= h($event['name']); ?></a>
                         </div>
                      <?php endforeach; ?>
                   </td>
