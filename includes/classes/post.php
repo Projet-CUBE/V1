@@ -74,15 +74,30 @@ class post extends Member
     
     public function getPostsCard()
     {
+
+        $member = new Member; //Variable member pour la vérification de connexion
+
+        
+
+        //Si déconnecté
+        if(!$member->isLogged()){
+
+            $result = getPdo()->prepare('SELECT * FROM post WHERE public = 1');
+            $result->execute();
+
+        }elseif($member->isLogged()){
+
+            $id_compte = (int)$_SESSION['id_compte'];
+            
+            $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+            $result->execute(['id_compte' => $id_compte]);
+            
+        }
+        
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
 
         // Attempt select query execution
-
-        $result = getPdo()->prepare('SELECT * FROM post');
-        $result->execute();
-
-        $member = new Member; //Variable member pour la vérification de connexion
 
         $i = 0;
         while ($row = $result->fetch()) {
@@ -95,9 +110,9 @@ class post extends Member
             
             $i++;
 
-            if ($i===1) {
-                print '<div class="row">';
-            }
+                if ($i===1) {
+                    print '<div class="row">';
+                }
                     print '<div class="col-sm-6">';
                         print '<div class="card">';//Vérifier si le post est privé ou public
                             if($row['image']){
@@ -128,6 +143,7 @@ class post extends Member
                             print '</div>';                          
                         print '</div>';
                     print '</div>';
+            
         }       
                 print '</div>';
     }
