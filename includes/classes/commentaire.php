@@ -39,7 +39,7 @@
         $query = getPdo()->prepare('SELECT pseudo FROM compte
         INNER JOIN post 
         ON compte.id_compte = post.FK_id_membre 
-        WHERE compte.id_compte = "' . $id_membre . '"
+        WHERE post.UUID_post = "' . $id_membre . '"
         LIMIT 1');
 
         $query->execute();

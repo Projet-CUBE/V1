@@ -44,16 +44,17 @@ else
     $errorMsg = "Upload JPG, JPEG, PNG & GIF Formate . . . . CHECK FILE EXTENSION"; // Error message file extension
 }
 
-$query = getPdo()->prepare('INSERT INTO post (contenu, publie, date_publication, FK_id_membre, image, name_image) 
-VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image)');
+    $query = getPdo()->prepare('UPDATE post 
+    SET contenu = :contenu, date_derniere_modification = NOW(), image = :image, name_image = :name_image
+    WHERE UUID_post = :UUID_post');
 
-if ($query->execute([
-    'contenu' => $name,
-    'publie' => 1,
-    'FK_id_membre' => $member->get('id_compte'),
-    ':image' => $image_file,
-    ':name_image' => $name
-    ])) 
+    if ($query->execute([
+        'contenu' => $name,
+        'image' => $image_file,
+        'name_image' => $name,
+        'UUID_post'  => (int)$_POST['idpost']
+    ]))
+
 {
     $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message
     header("refresh:3;index.php?page=accueil"); // Refresh 3 second and redirect to index.php
@@ -61,4 +62,4 @@ if ($query->execute([
 
 ?>
 
-<div class="alert alert-info">Vous avez inserer un Post, redirection en cours.</div>
+<div class="alert alert-info">Vous avez Updaté un Post, redirection en cours.</div>

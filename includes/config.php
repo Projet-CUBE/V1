@@ -8,7 +8,7 @@ return [
     'db_port' => 3306,
 
     // Configuration des pages
-    'default_page' => 'connexion',
+    'default_page' => 'accueil',
     'pages' => [
         'connexion' => [
             'file' => 'connexion.php', // Fichier contenant la page
@@ -33,7 +33,7 @@ return [
         'accueil' => [
             'file' => 'accueil.php',
             'title' => 'Accueil',
-            'protected' => true,
+            'protected' => false,
         ],
         'statistique' => [
             'file' => 'statistique.php',
@@ -78,6 +78,11 @@ return [
         'insertPost' => [
             'file' => 'insertPost.php',
             'title' => 'Inserer un post',
+            'protected' => true,
+        ],   
+        'updatePost' => [
+            'file' => 'updatePost.php',
+            'title' => 'Updater un post',
             'protected' => true,
         ],   
         'insertCommentaire' => [

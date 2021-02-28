@@ -5,8 +5,8 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
     $query = getPdo()->prepare('SELECT * FROM compte WHERE pseudo = :pseudo LIMIT 1');
     $query->execute(['pseudo' => $_POST['pseudo']]);
     $result = $query->fetch();
-    $pseudo = $_POST['pseudo'];
 
+    $pseudo = $_POST['pseudo'];
 
     if (!$result) {
         $errors->set('pseudo', 'Mauvais identifiant ou mot de passe');
@@ -18,7 +18,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
         $errors->set('pseudo', 'Mauvais identifiant ou mot de passe');
     }
     // Tout est bon !
-    if ($result['estBanni'] === '1') {
+    else if ($result['estBanni'] === '1') {
         echo "<div class=" . "alert alert-error" . ">T'es banni.</div>";
     } else {
         // On crée la session depuis les infos du membre récupérées en base
