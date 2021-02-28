@@ -110,11 +110,6 @@ $data3 = trim($data3,",");
  <form method='post' action='index.php?page=download'>
   <input type='submit' value='Export statistiques_commentaire' name='Export'>
  
-  <table border='1' style='border-collapse:collapse;'>
-    <tr>
-     <th>UUID_commentaire</th>
-     <th>date_commentaire</th>
-    </tr>
     <?php 
      $query = getPdo()->prepare('SELECT * FROM statistiques_commentaire ORDER BY UUID_commentaire asc');
      $query->execute(); 
@@ -124,14 +119,7 @@ $data3 = trim($data3,",");
      while ($row = $query->fetch()) {
       $UUID_commentaire = $row['UUID_commentaire'];
       $date_commentaire = $row['date_commentaire'];
-      $user_arr[] = array($UUID_commentaire,$date_commentaire);
-   ?>
-      <tr>
-       <td><?php echo $UUID_commentaire; ?></td>
-       <td><?php echo $date_commentaire; ?></td>
-      </tr>
-   <?php
-    }
+      $user_arr[] = array($UUID_commentaire,$date_commentaire);}
    ?>
    </table>
    <?php 
@@ -148,11 +136,6 @@ $data3 = trim($data3,",");
  <form method='post' action='index.php?page=download'>
   <input type='submit' value='Export statistiques_compte' name='Export'>
  
-  <table border='1' style='border-collapse:collapse;'>
-    <tr>
-     <th>id_compte</th>
-     <th>date_compte</th>
-    </tr>
     <?php 
      $query = getPdo()->prepare('SELECT * FROM statistiques_compte ORDER BY id_compte asc');
      $query->execute(); 
@@ -162,14 +145,7 @@ $data3 = trim($data3,",");
      while ($row = $query->fetch()) {
       $id_compte = $row['id_compte'];
       $date_compte = $row['date_compte'];
-      $user_arr[] = array($id_compte,$date_compte);
-   ?>
-      <tr>
-       <td><?php echo $id_compte; ?></td>
-       <td><?php echo $date_compte; ?></td>
-      </tr>
-   <?php
-    }
+      $user_arr[] = array($id_compte,$date_compte);}
    ?>
    </table>
    <?php 
@@ -186,11 +162,6 @@ $data3 = trim($data3,",");
  <form method='post' action='index.php?page=download'>
   <input type='submit' value='Export statistiques_post' name='Export'>
  
-  <table border='1' style='border-collapse:collapse;'>
-    <tr>
-     <th>UUID_post</th>
-     <th>date_post</th>
-    </tr>
     <?php 
      $query = getPdo()->prepare('SELECT * FROM statistiques_post ORDER BY UUID_post asc');
      $query->execute(); 
@@ -200,14 +171,7 @@ $data3 = trim($data3,",");
      while ($row = $query->fetch()) {
       $UUID_post = $row['UUID_post'];
       $date_post = $row['date_post'];
-      $user_arr[] = array($UUID_post, $date_post);
-   ?>
-      <tr>
-       <td><?php echo $UUID_post; ?></td>
-       <td><?php echo $date_post; ?></td>
-      </tr>
-   <?php
-    }
+      $user_arr[] = array($UUID_post, $date_post);}
    ?>
    </table>
    <?php 
