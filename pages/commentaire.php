@@ -1,6 +1,6 @@
 <?php 
 
-// echo $_POST['commentaire']; 
+// echo $_POST['commentaire']; ID du post à commenter : UUID_post
 
 
 $commentaire->getPoste((int)$_POST['commentaire']);
