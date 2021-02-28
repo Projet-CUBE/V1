@@ -162,19 +162,18 @@ class post extends Member
         ]);
     }
 
-    public function updatePosts()
+    public function updatePosts( int $_UUID_post, string $_contenu, string $_image_file, string $_name)
     {
 
         $query = getPdo()->prepare('UPDATE post 
-        SET titre = :titre, sous_titre = :sous_titre, contenu = :contenu, date_derniere_modification = NOW(), label = :label
+        SET contenu = :contenu, date_derniere_modification = NOW(), image = :image, name_image = :name_image
         WHERE UUID_post = :UUID_post');
 
         $query->execute([
-            'titre' => "Update",
-            'sous_titre' => "Vello Porld",
-            'contenu' => "Zorem Vpsum",
-            'label' => "Uiorem",
-            'UUID_post' => 3
+            'contenu' => $_contenu,
+            'image' => $_image_file,
+            'name_image' => $_name,
+            'UUID_post'  => $_UUID_post
         ]);
     }
 

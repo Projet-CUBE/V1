@@ -66,6 +66,11 @@ return [
             'title' => 'Inserer un post',
             'protected' => true,
         ],   
+        'updatePost' => [
+            'file' => 'updatePost.php',
+            'title' => 'Updater un post',
+            'protected' => true,
+        ],   
         'insertCommentaire' => [
             'file' => 'insertCommentaire.php',
             'title' => 'Inserer un commentaire',
