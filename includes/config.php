@@ -100,6 +100,11 @@ return [
             'title' => 'Delete',
             'protected' => true,
         ],
+        'download' => [
+            'file' => 'download.php',
+            'title' => 'Download',
+            'protected' => true,
+        ],
         '404' => [
             'file' => '404.php',
             'title' => 'Page introuvable',

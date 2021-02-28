@@ -54,7 +54,7 @@ class favoris
             WHEN favoris = 1 THEN favoris - 1 
             ELSE favoris 
             END)');
-        var_dump($query);
+        
 
         $query->execute();
     }

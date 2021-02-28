@@ -1,5 +1,4 @@
-
-    <?php
+<?php
 
 $data1 = '';
 
@@ -59,47 +58,161 @@ $data3 = trim($data3,",");
 ?>
 
 
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
- 
-      <div class="container">      
-              <canvas id="chart" style="width: 100%; height: 65vh; background: #222; border: 1px solid #555652; margin-top: 10px;"></canvas>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 
-              <script>
-                    var ctx = document.getElementById("chart").getContext('2d');
-                  var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['JAN', 'FÉV', 'MAR', 'AVR', 'MAI', 'JUN', 'JUL', 'AOÛ', 'SEP', 'OCT', 'NOV', 'DÉC'],
-                    datasets: 
-                    [{
-                        label: 'Commentaires par mois',
-                        data: [<?php echo $data1; ?>],
-                        backgroundColor: 'transparent',
-                        borderColor:'rgba(255,99,132)',
-                        borderWidth: 3
-                    },
-                    {
-                        label: 'Création de comptes par mois',
-                        data: [<?php echo $data2; ?>],
-                        backgroundColor: 'transparent',
-                        borderColor:'rgba(46,134,193)',
-                        borderWidth: 3
-                    },
-                    {
-                        label: 'Posts par mois',
-                        data: [<?php echo $data3; ?>],
-                        backgroundColor: 'transparent',
-                        borderColor:'rgba(29,131,72)',
-                        borderWidth: 3
-                    },
-                  ]
-                },
-             
-                options: {
-                    scales: {scales:{yAxes: [{beginAtZero: false}], xAxes: [{autoskip: true, maxTicketsLimit: 20}]}},
-                    tooltips:{mode: 'index'},
-                    legend:{display: true, position: 'top', labels: {fontColor: 'rgb(255,255,255)', fontSize: 16}}
-                }
-            });
-              </script>
-      </div>
+<div class="container">      
+        <canvas id="chart" style="width: 100%; height: 65vh; background: #222; border: 1px solid #555652; margin-top: 10px;"></canvas>
+
+        <script>
+            var ctx = document.getElementById("chart").getContext('2d');
+            var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['JAN', 'FÉV', 'MAR', 'AVR', 'MAI', 'JUN', 'JUL', 'AOÛ', 'SEP', 'OCT', 'NOV', 'DÉC'],
+            datasets: 
+            [{
+                label: 'Commentaires par mois',
+                data: [<?php echo $data1; ?>],
+                backgroundColor: 'transparent',
+                borderColor:'rgba(255,99,132)',
+                borderWidth: 3
+            },
+            {
+                label: 'Création de comptes par mois',
+                data: [<?php echo $data2; ?>],
+                backgroundColor: 'transparent',
+                borderColor:'rgba(46,134,193)',
+                borderWidth: 3
+            },
+            {
+                label: 'Posts par mois',
+                data: [<?php echo $data3; ?>],
+                backgroundColor: 'transparent',
+                borderColor:'rgba(29,131,72)',
+                borderWidth: 3
+            },
+            ]
+        },
+        
+        options: {
+            scales: {scales:{yAxes: [{beginAtZero: false}], xAxes: [{autoskip: true, maxTicketsLimit: 20}]}},
+            tooltips:{mode: 'index'},
+            legend:{display: true, position: 'top', labels: {fontColor: 'rgb(255,255,255)', fontSize: 16}}
+        }
+    });
+        </script>
+</div>
+
+
+
+<div class="container">
+ 
+ <form method='post' action='index.php?page=download'>
+  <input type='submit' value='Export statistiques_commentaire' name='Export'>
+ 
+  <table border='1' style='border-collapse:collapse;'>
+    <tr>
+     <th>UUID_commentaire</th>
+     <th>date_commentaire</th>
+    </tr>
+    <?php 
+     $query = getPdo()->prepare('SELECT * FROM statistiques_commentaire ORDER BY UUID_commentaire asc');
+     $query->execute(); 
+
+
+     $user_arr = array();
+     while ($row = $query->fetch()) {
+      $UUID_commentaire = $row['UUID_commentaire'];
+      $date_commentaire = $row['date_commentaire'];
+      $user_arr[] = array($UUID_commentaire,$date_commentaire);
+   ?>
+      <tr>
+       <td><?php echo $UUID_commentaire; ?></td>
+       <td><?php echo $date_commentaire; ?></td>
+      </tr>
+   <?php
+    }
+   ?>
+   </table>
+   <?php 
+    $serialize_user_arr = serialize($user_arr);
+   ?>
+  <textarea name='export_data' style='display: none;'><?php echo $serialize_user_arr; ?></textarea>
+ </form>
+</div>
+
+
+
+<div class="container">
+ 
+ <form method='post' action='index.php?page=download'>
+  <input type='submit' value='Export statistiques_compte' name='Export'>
+ 
+  <table border='1' style='border-collapse:collapse;'>
+    <tr>
+     <th>id_compte</th>
+     <th>date_compte</th>
+    </tr>
+    <?php 
+     $query = getPdo()->prepare('SELECT * FROM statistiques_compte ORDER BY id_compte asc');
+     $query->execute(); 
+
+
+     $user_arr = array();
+     while ($row = $query->fetch()) {
+      $id_compte = $row['id_compte'];
+      $date_compte = $row['date_compte'];
+      $user_arr[] = array($id_compte,$date_compte);
+   ?>
+      <tr>
+       <td><?php echo $id_compte; ?></td>
+       <td><?php echo $date_compte; ?></td>
+      </tr>
+   <?php
+    }
+   ?>
+   </table>
+   <?php 
+    $serialize_user_arr = serialize($user_arr);
+   ?>
+  <textarea name='export_data' style='display: none;'><?php echo $serialize_user_arr; ?></textarea>
+ </form>
+</div>
+
+
+
+<div class="container">
+ 
+ <form method='post' action='index.php?page=download'>
+  <input type='submit' value='Export statistiques_post' name='Export'>
+ 
+  <table border='1' style='border-collapse:collapse;'>
+    <tr>
+     <th>UUID_post</th>
+     <th>date_post</th>
+    </tr>
+    <?php 
+     $query = getPdo()->prepare('SELECT * FROM statistiques_post ORDER BY UUID_post asc');
+     $query->execute(); 
+
+
+     $user_arr = array();
+     while ($row = $query->fetch()) {
+      $UUID_post = $row['UUID_post'];
+      $date_post = $row['date_post'];
+      $user_arr[] = array($UUID_post, $date_post);
+   ?>
+      <tr>
+       <td><?php echo $UUID_post; ?></td>
+       <td><?php echo $date_post; ?></td>
+      </tr>
+   <?php
+    }
+   ?>
+   </table>
+   <?php 
+    $serialize_user_arr = serialize($user_arr);
+   ?>
+  <textarea name='export_data' style='display: none;'><?php echo $serialize_user_arr; ?></textarea>
+ </form>
+</div>
