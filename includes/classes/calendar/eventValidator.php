@@ -39,9 +39,6 @@ class eventValidator
 
     public function minLength(string $field, int $length): bool
     {
-
-
-
         if (mb_strlen($field) < $length) {
             $this->errors[$field] = "Le champ doit avoir plus de $length caractères";
             return false;
