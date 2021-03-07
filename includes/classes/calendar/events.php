@@ -50,46 +50,60 @@ class events
     }
 
 
-    public function hydrate(Event $event, array $data){
+    public function hydrate(Event $event, array $data, $member)
+    {
         $event->setName($data['name']);
         $event->setDescription($data['description']);
         $event->setStart(DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['start'])->format('Y-m-d H:i:s'));
         $event->setEnd(DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['end'])->format('Y-m-d H:i:s'));
+        $member->get('id_compte');
         return $event;
     }
     /**
      * Créer un évènement au niveau bdd
      */
-    public function create(Event $event): bool
+    public function create(Event $event, $member): bool
     {
-        $statement = getPdo()->prepare('INSERT INTO evenements (name, description, start, end) VALUES (?, ?, ?, ?)');
+        $statement = getPdo()->prepare('INSERT INTO evenements (name, description, start, end, id_compte) VALUES (?, ?, ?, ?, ?)');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->convertDateTime(0)->format('Y-m-d H:i:s'),
             $event->convertDateTime(1)->format('Y-m-d H:i:s'),
+            $member->get('id_compte'),
         ]);
     }
     /**
      * Modifier un évènement au niveau bdd
      */
-    public function update(Event $event): bool
+    public function update(Event $event, $member): bool
     {
-        $statement = getPdo()->prepare('UPDATE evenements SET name = ?, description = ?, start = ?, end = ? WHERE id = ?');
+        $statement = getPdo()->prepare('UPDATE evenements SET name = ?, description = ?, start = ?, end = ?, id_compte = ? WHERE id_event = ?');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->convertDateTime(0)->format('Y-m-d H:i:s'),
             $event->convertDateTime(1)->format('Y-m-d H:i:s'),
-            $event->getId()
+            $event->getId(),
+            $member->get('id_compte')
         ]);
     }
 
     /**
      * TODO: Supprime un évènement
      */
-    public function delete(Event $event):bool {
-        return false;
-
+    public function delete(Event $event, $member)
+    {
+        $member_compare = $member->get('id_compte');
+        $event_compare = $event->getIdCompte();
+        if ($member_compare === $event_compare) {
+            $statement = getPdo()->prepare('DELETE FROM evenements WHERE id_event = ? & id_compte = ? ');
+            return $statement->execute([
+                $event->getId(),
+                $member->get('id_compte')
+            ]);
+        } else {
+            echo ('Tu ne peux pas supprimer un event que tu n\'as pas créer');
+        }
     }
 }

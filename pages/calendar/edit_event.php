@@ -1,4 +1,5 @@
 <?php
+
 $pdo = getPdo();
 $events = new events();
 $errors = [];
@@ -19,8 +20,6 @@ $data = [
     'start' => $event->convertDateTime(0)->format('H:i'),
     'end' => $event->convertDateTime(1)->format('H:i'),
     'description' => $event->getDescription()
-
-
 ];
 
 
@@ -31,12 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = $validator->validates($data);
 
     if (empty($errors)) {
-        $events->hydrate($event, $data);
-        $events->update($event);
+        $events->hydrate($event, $data, $member);
+        $events->update($event, $member);
         header('Location: index.php?page=evenements&success=1&event=' . $data['date']);
         exit();
     }
 }
+echo ('On regarde ce qu\'on a dans member');
+echo ('<br>');
+echo ('Id du compte');
+bug($member);
+bug($event);
 
 ?>
 
@@ -111,10 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="form-goup">
                 <button class="btn btn-primary">Modifier l'évènement</button>
+                <button class="btn btn-danger" onclick="<?php $events->delete($event, $member); ?>">Supprimer l'évènement</button>
             </div>
         </form>
     </div>
-
 </body>
 
 </html>

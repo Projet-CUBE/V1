@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
     $errors = $validator->validates($data);
     if (empty($errors)) {
-        $event = $events->hydrate(new Event(), $data);
+        $event = $events->hydrate(new Event(), $data, $member);
         $events = new events(getPdo());
-        $events->create($event);
+        $events->create($event, $member);
         header('Location: index.php?page=evenements&success=1&event=' . $data['date']);
         exit();
     }
