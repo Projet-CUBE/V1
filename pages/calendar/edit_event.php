@@ -23,14 +23,12 @@ $data = [
 ];
 
 function delete(Event $event, $member)
-{
-
-        $statement = getPdo()->prepare('DELETE FROM evenements WHERE id_event = 22');
+{        
+        $statement = getPdo()->prepare('DELETE FROM evenements WHERE id_event = ? AND id_compte = ?');
         $statement->execute([
-            'events' => $event->getId(),
-            'member'=> $member->get('id_compte')
+            $event->getId(),
+            $member->get('id_compte'),
         ]);
-
 }
 
 if(array_key_exists('button1', $_POST)) { 
@@ -52,13 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
-echo ('On regarde ce qu\'on a dans member');
-echo ('<br>');
-echo ('Id du compte');
-bug($member);
-bug($event);
-
-
 ?>
 
 <head>
