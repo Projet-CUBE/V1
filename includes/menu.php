@@ -1,6 +1,7 @@
 <?php 
-if ($_POST['liste'])
-$_SESSION['liste'] = $_POST['liste']; ?>
+if (isset($_POST['liste']))
+$_SESSION['liste'] = $_POST['liste'];
+else $_SESSION['liste'] = 'fr_fr' ?>
 
 
 <div class="topnav" id="myTopnav">
