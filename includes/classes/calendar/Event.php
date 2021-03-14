@@ -2,18 +2,19 @@
 
 class Event
 {
-    private $id;
+    private $id_event;
     private $name;
     private $description;
     private $start;
     private $end;
+    private $id_compte;
     /**
      * Getter
      */
 
     public function getId(): int
     {
-        return $this->id;
+        return $this->id_event;
     }
     public function getName(): string
     {
@@ -30,6 +31,9 @@ class Event
     public function getEnd(): string
     {
         return $this->end;
+    }
+    public function getIdCompte(): int{
+        return $this->id_compte;
     }
 
     /**

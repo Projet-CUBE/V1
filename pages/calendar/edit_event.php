@@ -1,4 +1,5 @@
 <?php
+
 $pdo = getPdo();
 $events = new events();
 $errors = [];
@@ -19,9 +20,21 @@ $data = [
     'start' => $event->convertDateTime(0)->format('H:i'),
     'end' => $event->convertDateTime(1)->format('H:i'),
     'description' => $event->getDescription()
-
-
 ];
+
+function delete(Event $event, $member)
+{        
+        $statement = getPdo()->prepare('DELETE FROM evenements WHERE id_event = ? AND id_compte = ?');
+        $statement->execute([
+            $event->getId(),
+            $member->get('id_compte'),
+        ]);
+}
+
+if(array_key_exists('button1', $_POST)) { 
+    // $events->delete($event, $member); 
+    delete($event, $member);
+} 
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,13 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = $validator->validates($data);
 
     if (empty($errors)) {
-        $events->hydrate($event, $data);
-        $events->update($event);
+        $events->hydrate($event, $data, $member);
+        $events->update($event, $member);
         header('Location: index.php?page=evenements&success=1&event=' . $data['date']);
         exit();
     }
 }
-
 ?>
 
 <head>
@@ -57,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Editer l'évènement <small><?= h($event->getName()); ?></small></h1>
     <div class="container">
 
-        <form action="" method="post" class="form">
+    <form action="" method="post" class="form"> 
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -111,10 +123,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="form-goup">
                 <button class="btn btn-primary">Modifier l'évènement</button>
+                <button class="btn btn-danger" name="button1" value="Button1">Supprimer l'évènement</button>
             </div>
         </form>
     </div>
-
 </body>
 
 </html>
