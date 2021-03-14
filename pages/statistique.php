@@ -55,6 +55,24 @@ while ($row = $select3->fetch()) {
 
 $data3 = trim($data3,",");
 
+// -----------------------------------------------------------------------------------------------------
+
+$data4 = '';
+
+//database query to get data from the table
+$select4 = getPdo()->prepare('SELECT  
+                            MONTH( date_event ) AS MOIS, 
+                            COUNT( id_event ) AS NOMBRE_POSTS
+                            FROM statistiques_event
+                            GROUP BY MOIS');
+//execute query
+$select4->execute();
+
+while ($row = $select4->fetch()) {
+    $data4 = $data4 . '"'. $row['NOMBRE_POSTS'].'",';
+}
+
+$data4 = trim($data4,",");
 ?>
 
 
@@ -89,6 +107,13 @@ $data3 = trim($data3,",");
                 data: [<?php echo $data3; ?>],
                 backgroundColor: 'transparent',
                 borderColor:'rgba(29,131,72)',
+                borderWidth: 3
+            },
+            {
+                label: 'Events par mois',
+                data: [<?php echo $data4; ?>],
+                backgroundColor: 'transparent',
+                borderColor:'rgba(0,255,0)',
                 borderWidth: 3
             },
             ]
@@ -172,6 +197,30 @@ $data3 = trim($data3,",");
       $UUID_post = $row['UUID_post'];
       $date_post = $row['date_post'];
       $user_arr[] = array($UUID_post, $date_post);}
+   ?>
+   </table>
+   <?php 
+    $serialize_user_arr = serialize($user_arr);
+   ?>
+  <textarea name='export_data' style='display: none;'><?php echo $serialize_user_arr; ?></textarea>
+ </form>
+</div>
+
+<div class="container">
+ 
+ <form method='post' action='index.php?page=download'>
+  <input type='submit' value='Export statistiques_event' name='Export'>
+ 
+    <?php 
+     $query = getPdo()->prepare('SELECT * FROM statistiques_event ORDER BY id_event  asc');
+     $query->execute(); 
+
+
+     $user_arr = array();
+     while ($row = $query->fetch()) {
+      $id_event = $row['id_event'];
+      $date_event = $row['date_event'];
+      $user_arr[] = array($id_event, $date_event);}
    ?>
    </table>
    <?php 
