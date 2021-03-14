@@ -1,8 +1,16 @@
 <?php 
-if (isset($_POST['liste']))
-$_SESSION['liste'] = $_POST['liste'];
-else $_SESSION['liste'] = 'fr_fr' ?>
 
+if (isset($_POST['liste']) == NULL) {
+  $_POST['liste'] = "fr_fr";
+
+} 
+elseif ($_POST['liste'] == "fr_fr" || "en_us" || "es_es" || "it_it" )
+{
+  $_SESSION['liste'] = $_POST['liste'];
+
+}
+
+ ?>
 
 <div class="topnav" id="myTopnav">
         <a class="navbar-brand" href="#">Projet CUBE</a>
