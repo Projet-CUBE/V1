@@ -1,4 +1,5 @@
-<?php if (isset($_POST['liste']))
+<?php 
+if ($_POST['liste'])
 $_SESSION['liste'] = $_POST['liste']; ?>
 
 
@@ -9,7 +10,7 @@ $_SESSION['liste'] = $_POST['liste']; ?>
         <select id="liste" name="liste" class="form-select" aria-label="Default select example">
           <option value="fr_fr">Français</option>
           <option value="en_us">Anglais</option>
-          <option value="es_es">Espagnole</option>
+          <option value="es_es">Espagnol</option>
           <option value="it_it">Italien</option>
         </select>
         <button type="submit" >Langue</button>
