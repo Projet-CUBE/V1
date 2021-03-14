@@ -22,6 +22,22 @@ $data = [
     'description' => $event->getDescription()
 ];
 
+function delete(Event $event, $member)
+{
+
+        $statement = getPdo()->prepare('DELETE FROM evenements WHERE id_event = 22');
+        $statement->execute([
+            'events' => $event->getId(),
+            'member'=> $member->get('id_compte')
+        ]);
+
+}
+
+if(array_key_exists('button1', $_POST)) { 
+    // $events->delete($event, $member); 
+    delete($event, $member);
+} 
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST;
@@ -42,6 +58,7 @@ echo ('Id du compte');
 bug($member);
 bug($event);
 
+
 ?>
 
 <head>
@@ -61,7 +78,7 @@ bug($event);
     <h1>Editer l'évènement <small><?= h($event->getName()); ?></small></h1>
     <div class="container">
 
-        <form action="" method="post" class="form">
+    <form action="" method="post" class="form"> 
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -115,7 +132,7 @@ bug($event);
             </div>
             <div class="form-goup">
                 <button class="btn btn-primary">Modifier l'évènement</button>
-                <button class="btn btn-danger" onclick="<?php $events->delete($event, $member); ?>">Supprimer l'évènement</button>
+                <button class="btn btn-danger" name="button1" value="Button1">Supprimer l'évènement</button>
             </div>
         </form>
     </div>
