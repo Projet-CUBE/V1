@@ -7,9 +7,12 @@ if (isset($_POST['liste']) == NULL) {
 elseif ($_POST['liste'] == "fr_fr" || "en_us" || "es_es" || "it_it" )
 {
   $_SESSION['liste'] = $_POST['liste'];
-
 }
 
+
+if (isset($_SESSION['liste']) == NULL) {
+  $_SESSION['liste'] = "fr_fr";
+} 
  ?>
 
 <div class="topnav" id="myTopnav">
