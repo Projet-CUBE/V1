@@ -34,7 +34,7 @@
    </p>
    
    <p>
-   <button type="submit" >Update des droits</button>
+   <button class="btn btn-primary" type="submit" >Update des droits</button>
    </p>
 
 </form>
