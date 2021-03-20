@@ -49,21 +49,21 @@ class post extends Member
 
 
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
-            
+
             $UUID_post = $row['UUID_post'];
 
             print "<td>" . '<form action="index.php?page=commentaire" method="post"> 
-            <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
+            <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
             <input type="submit" value="Commentaire" /> 
             </form>' . "</td>";
 
             print "<td>" . '<form action="index.php?page=update" method="post"> 
-            <input name="update" type="hidden" value="'. $UUID_post . '" />  
+            <input name="update" type="hidden" value="' . $UUID_post . '" />  
             <input type="submit" value="Update" /> 
             </form>' . "</td>";
 
             print "<td>" . '<form action="index.php?page=delete" method="post">  
-            <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
+            <input name="delete" type="hidden" value="' . $UUID_post . '" /> 
             <input type="submit" value="Delete" /> 
             </form>' . "</td>";
 
@@ -71,84 +71,143 @@ class post extends Member
         }
         echo "</table>";
     }
-    
+
     public function getPostsCard()
     {
 
         $member = new Member; //Variable member pour la vérification de connexion
 
         //Si déconnecté
-        if(!$member->isLogged()){
+        if (!$member->isLogged()) {
 
             $result = getPdo()->prepare('SELECT * FROM post WHERE public = 1');
             $result->execute();
-
-        }elseif($member->isLogged()){
+        } elseif ($member->isLogged()) {
 
             $id_compte = (int)$_SESSION['id_compte'];
-            
+
             $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
             $result->execute(['id_compte' => $id_compte]);
+        }
+
+        function updateFavoris($UUID_post, $id_membre)
+        {
+            $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post AND id_membre=:id_membre');
+            $result->execute([
+                'id_post' => $UUID_post,
+                'id_membre' => $id_membre
+            ]);
+            $query = getPdo()->prepare('UPDATE favoris
+            SET favoris = (CASE 
+            WHEN favoris = 0 THEN favoris + 1 
+            WHEN favoris = 1 THEN favoris - 1 
+            ELSE favoris 
+            END) WHERE id_post=:id_post AND id_membre=:id_membre');
+
+            $query->execute([
+                'id_post' => $UUID_post,
+                'id_membre' => $id_membre
+            ]);
             
         }
-        
+        function updateLater()
+        {
+            $result = getPdo()->prepare('SELECT * FROM favoris');
+            $result->execute();
+            $query = getPdo()->prepare('UPDATE favoris
+        SET id_post=:id_post, id_membre=:id_membre, favoris=:favoris,
+        plus_tard = (CASE 
+        WHEN plus_tard = 0 THEN plus_tard + 1 
+        WHEN plus_tard = 1 THEN plus_tard - 1 
+        ELSE plus_tard 
+        END)');
+
+            while ($row = $result->fetch()) {
+                $query->execute([
+                    'id_post' => $row['id_post'],
+                    'id_membre' => $row['id_membre'],
+                    'favoris' => $row['favoris']
+                ]);
+            }
+        }
+
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
 
         // Attempt select query execution
+        bug($_POST);
+       
 
         $i = 0;
+        print '<form action="" method="post">';
         while ($row = $result->fetch()) {
-
+            reset($_POST);
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
-            
+
             $UUID_post = $row['UUID_post'];
             // Utilisation de this-> Sinon Uncaught error
-            $pseudo = $this->pseudoo((int)$UUID_post); 
-            
+            $pseudo = $this->pseudoo((int)$UUID_post);
+           
+            $favoris = new favoris();
+            //$updateLater = $later->updateLater();
+            // $favoris->updateFavoris($UUID_post)
+            if (array_key_exists('btn_fav', $_POST)) {
+                // $events->delete($event, $member);
+                $favoris = new favoris();
+                $favoris->updateFavoris($_POST['btn_fav'], $_SESSION['id_compte']);
+                header('Location: index.php?page=accueil');
+            }
+            if (array_key_exists('btn_later', $_POST)) {
+                // $events->delete($event, $member); 
+                $later = new later();
+                // $later->updateLater();
+            }
             $i++;
 
-                if ($i===1) {
-                    print '<div class="row">';
-                }
-                    print '<div class="col-sm-6">';
-                        print '<div class="card">';//Vérifier si le post est privé ou public
-                            if($row['image']){
-                                print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
-                            }
-                            print '<div class="card-body">'; 
-                                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-                                print '<button onclick="">Favoris</button>';  
-                                print '<p class="card-text">' . $row['contenu'] . '</p>';
-                                    if($member->isLogged()){
-                                        print '<form action="index.php?page=commentaire" method="post"> 
-                                        <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
+            if ($i === 1) {
+                print '<div class="row">';
+            }
+            print '<div class="col-sm-6">';
+            print '<div class="card">'; //Vérifier si le post est privé ou public
+            if ($row['image']) {
+                print '<img class="card-img-top" src="../upload/' . $row['image'] . '" alt="Card image cap">';
+            }
+            print '<div class="card-body">';
+            print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
+            bug($UUID_post);
+            bug($favoris->getFavoris($UUID_post));
+            print '<button name="btn_fav" value='.$UUID_post.'>Favoris</button>';
+            print '<button name="btn_later" value"btn_later">Later</button>';
+            print '<p class="card-text">' . $row['contenu'] . '</p>';
+            if ($member->isLogged()) {
+                print '<form action="index.php?page=commentaire" method="post"> 
+                                        <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
                                         <input type="submit" value="Commentaire" /> 
                                         </form>';
-                                        
-                                        if($member->get('pseudo')==$pseudo['pseudo']){
-                                            print '<form action="index.php?page=update" method="post"> 
-                                            <input name="update" type="hidden" value="'. $UUID_post . '" />  
+
+                if ($member->get('pseudo') == $pseudo['pseudo']) {
+                    print '<form action="index.php?page=update" method="post"> 
+                                            <input name="update" type="hidden" value="' . $UUID_post . '" />  
                                             <input type="submit" value="Update" /> 
                                             </form>';
-                                
-                                            print '<form action="index.php?page=delete" method="post">  
-                                            <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
+
+                    print '<form action="index.php?page=delete" method="post">  
+                                            <input name="delete" type="hidden" value="' . $UUID_post . '" /> 
                                             <input type="submit" value="Delete" /> 
                                             </form>';
-                                        }
-                                    }
-                                
-                            print '</div>';                          
-                        print '</div>';
-                    print '</div>';
-            
-        }       
-                print '</div>';
+                }
+            }
+
+            print '</div>';
+            print '</div>';
+            print '</div>';
+        }
+        print '</form>';
+        print '</div>';
     }
 
 
-    public function pseudoo(int $id_membre) : array
+    public function pseudoo(int $id_membre): array
     {
         $query = getPdo()->prepare('SELECT pseudo FROM compte
         INNER JOIN post 
@@ -177,7 +236,7 @@ class post extends Member
         ]);
     }
 
-    public function updatePosts( int $_UUID_post, string $_contenu, string $_image_file, string $_name)
+    public function updatePosts(int $_UUID_post, string $_contenu, string $_image_file, string $_name)
     {
 
         $query = getPdo()->prepare('UPDATE post 
@@ -220,16 +279,11 @@ class post extends Member
 
         // }else{
 
-            $query = getPdo()->prepare('DELETE FROM post 
+        $query = getPdo()->prepare('DELETE FROM post 
             WHERE UUID_post = :UUID_post');
 
-            $query->execute([
-                'UUID_post' => $_UUID_post
-            ]);
-
-        
-        
-
+        $query->execute([
+            'UUID_post' => $_UUID_post
+        ]);
     }
-
 }

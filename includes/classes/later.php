@@ -57,7 +57,6 @@ class later
         END)');
 
         while ($row = $result->fetch()) {
-            bug($row);
             $query->execute([
                 'id_post' => $row['id_post'],
                 'id_membre' => $row['id_membre'],

@@ -70,7 +70,6 @@ if ($query->execute([
         'FK_id_membre' =>  $_SESSION['id_compte']
     ]);
     $id_post = $querySelect->fetch();
-    bug($id_post);
     $queryFav->execute([
         'id_post' => $id_post['UUID_post'],
         'id_membre' => $_SESSION['id_compte'],
