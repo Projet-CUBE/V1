@@ -103,7 +103,7 @@ class events
                 $member->get('id_compte')
             ]);
         } else {
-            echo ('Tu ne peux pas supprimer un event que tu n\'as pas créer');
+            echo ('Tu ne peux pas supprimer un event que tu n\'as pas créé');
         }
     }
 }
