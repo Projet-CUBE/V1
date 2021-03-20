@@ -10,6 +10,27 @@ Bonjour
     
 </p>
 -->
+<form action="index.php?page=accueil" method="post">
+   <p>
+      <label for="categorie">categories</label>
+      <select name="categorie" id="categorie">
+      <?php 
+            foreach ($categorie->selectCategorie() as $id) :
+                ?>
+                <option value="<?= $id['id_categorie']?>"> 
+                <?= $id['nom']?> 
+                </option>
+                <?php endforeach; ?>
+      </select>
+    </p>
+
+   <p>
+   <button class="btn btn-primary" type="submit" >Categories</button>
+   </p>
+
+</form>
+
+
 <?= $post->getPostsCard()?>
 <!-- <p>Later :
     < ?= $later->getLater()?>
@@ -155,6 +176,15 @@ Bonjour
                 <a href="index.php" class="btn btn-danger">Cancel</a>
             </div>
         </div>
-
+        <label for="categorie">categories</label>
+      <select name="categorie" id="categorie">
+      <?php 
+            foreach ($categorie->selectCategorie() as $id) :
+                ?>
+                <option value="<?= $id['id_categorie']?>"> 
+                <?= $id['nom']?> 
+                </option>
+                <?php endforeach; ?>
+      </select>
     </form>
 <?php endif; ?>

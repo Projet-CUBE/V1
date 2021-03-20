@@ -19,6 +19,23 @@
         ]);
     }
 
+    public function selectCategorie()
+    {
+        //
+        $query = getPdo()->prepare('SELECT * FROM categorie');
+        
+        $query->execute();    
+
+        $i = 0;
+
+        while ($row = $query->fetch()) {
+            $statut[$i++] = $row;
+            var_dump($row);
+        }
+
+        return $statut;
+    }
+
     public function updateCategorie()
     {
         $query = getPdo()->prepare('UPDATE categorie 
