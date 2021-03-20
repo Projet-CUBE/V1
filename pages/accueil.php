@@ -147,6 +147,18 @@ Bonjour
             <label class="form-check-label" for="protectedRadio">
                 Protegé
             </label>
+            <label for="pseudoFriend">pseudo</label>
+            <select name="pseudoFriend" id="pseudoFriend">
+                <?php 
+                    $max = sizeof($droit->getPseudo());
+                    for($i = 0; $i < $max;$i++)
+                    {
+                        ?>
+                        <option value="<?= $droit->getPseudo()[$i]?>"> 
+                        <?= $droit->getPseudo()[$i] ?> 
+                        </option>
+                <?php } ?>
+        </select>
         </div>
 
         <!--Ajout + annulé-->

@@ -19,6 +19,12 @@ if($_POST['protection']=='private') {
     $protected = 1;
 }
 
+$friend = $_POST['pseudoFriend'];
+
+$friendRequest = getPdo()->prepare('SELECT id_compte FROM compte WHERE pseudo == ' + $friend);
+
+$friendRequest->execute();
+
 //Image
 $name = $_REQUEST['txt_name']; // TextBox name "txt_name"
 
@@ -74,9 +80,18 @@ if ($query->execute([
     ':protected' => $protected
     ])) 
 {
+
+    $protectedFriend = getPdo()->prepare('INSERT INTO protected_post (FK_id_post, FK_id_compte) VALUES (LAST_INSERT_ID(), :FK_id_compte)');
+
+    $protectedFriend->execute([
+        'FK_id_compte' => $friendRequest
+    ]);
+
     $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message
     header("refresh:3;index.php?page=accueil"); // Refresh 3 second and redirect to index.php
 }
+
+
 
 ?>
 

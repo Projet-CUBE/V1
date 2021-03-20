@@ -87,7 +87,13 @@ class post extends Member
 
             $id_compte = (int)$_SESSION['id_compte'];
             
-            $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+            $result = getPdo()->prepare('SELECT * FROM post p 
+            INNER JOIN compte c ON c.id_compte = p.FK_id_membre 
+            INNER JOIN protected_post pp ON pp.FK_id_post = p.UUID_post
+            WHERE public = 1 
+            OR private = 1 AND id_compte = :id_compte
+            OR protected = 1 /*AND id_compte = :id_compte AND UUID_post = pp.FK_id_post*/');
+
             $result->execute(['id_compte' => $id_compte]);
             
         }
