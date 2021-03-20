@@ -92,7 +92,7 @@ class post extends Member
             INNER JOIN protected_post pp ON pp.FK_id_post = p.UUID_post
             WHERE public = 1 
             OR private = 1 AND id_compte = :id_compte
-            OR protected = 1 /*AND id_compte = :id_compte AND UUID_post = pp.FK_id_post*/');
+            OR protected = 1');
 
             $result->execute(['id_compte' => $id_compte]);
             

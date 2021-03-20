@@ -19,11 +19,6 @@ if ($_POST['protection'] == 'private') {
     $protected = 1;
 }
 
-$friend = $_POST['pseudoFriend'];
-
-$friendRequest = getPdo()->prepare('SELECT id_compte FROM compte WHERE pseudo == ' + $friend);
-
-$friendRequest->execute();
 
 //Image
 $name = $_REQUEST['txt_name']; // TextBox name "txt_name"
@@ -74,21 +69,31 @@ if ($query->execute([
     ])) 
 {
 
-    $protectedFriend = getPdo()->prepare('INSERT INTO protected_post (FK_id_post, FK_id_compte) VALUES (LAST_INSERT_ID(), :FK_id_compte)');
+    $friend = $_POST['pseudoFriend'];
 
-    $protectedFriend->execute([
-        'FK_id_compte' => $friendRequest
-]); 
+    $friendSelect = getPdo()->prepare('SELECT id_compte FROM compte WHERE pseudo="'.$friend.'"');
+    $friendSelect->execute();
+
+    $id_friend = $friendSelect->fetch();
+
+    $protectedFriend = getPdo()->prepare('INSERT INTO protected_post (FK_id_post, FK_id_compte, id_friend) VALUES (:FK_id_post, :FK_id_compte, :id_friend)');
+
     $querySelect->execute([
         'FK_id_membre' =>  $_SESSION['id_compte']
     ]);
     $id_post = $querySelect->fetch();
-    bug($id_post);
+    
     $queryFav->execute([
         'id_post' => $id_post['UUID_post'],
         'id_membre' => $_SESSION['id_compte'],
         'favoris' => 0,
         'plus_tard' => 0,
+    ]);
+
+    $protectedFriend->execute([
+        'FK_id_post' => $id_post['UUID_post'],
+        'FK_id_compte' => $_SESSION['id_compte'],
+        'id_friend' => $id_friend['id_compte']
     ]);
 
     $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message
