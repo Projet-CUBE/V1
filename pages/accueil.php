@@ -11,7 +11,6 @@ Bonjour
 </p>
 -->
 <?= $post->getPostsCard()?>
-
 <!-- <p>Later :
     < ?= $later->getLater()?>
     < !-- à décommenter pour update le champ à regarder à plus tard)
