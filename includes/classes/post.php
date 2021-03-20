@@ -117,7 +117,8 @@ class post extends Member
                                 print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
                             }
                             print '<div class="card-body">'; 
-                                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';  
+                                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
+                                print '<button onclick="">Favoris</button>';  
                                 print '<p class="card-text">' . $row['contenu'] . '</p>';
                                     if($member->isLogged()){
                                         print '<form action="index.php?page=commentaire" method="post"> 
