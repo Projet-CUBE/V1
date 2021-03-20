@@ -18,7 +18,7 @@ class favoris
 
     public function getFavoris()
     {
-        
+
 
         $result = getPdo()->prepare('SELECT * FROM favoris');
         $result->execute();
@@ -49,13 +49,19 @@ class favoris
         $result = getPdo()->prepare('SELECT * FROM favoris');
         $result->execute();
         $query = getPdo()->prepare('UPDATE favoris
-            SET favoris = (CASE 
+            SET id_post=:id_post, id_membre=:id_membre, plus_tard=:plus_tard,
+            favoris = (CASE 
             WHEN favoris = 0 THEN favoris + 1 
             WHEN favoris = 1 THEN favoris - 1 
             ELSE favoris 
             END)');
-        
-
-        $query->execute();
+        while ($row = $result->fetch()) {
+            bug($row);
+            $query->execute([
+                'id_post' => $row['id_post'],
+                'id_membre' => $row['id_membre'],
+                'plus_tard' => $row['plus_tard']                
+            ]);
+        }
     }
 }

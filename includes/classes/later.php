@@ -18,7 +18,7 @@ class later
 
     public function getLater()
     {
-        
+
 
         $result = getPdo()->prepare('SELECT * FROM favoris');
         $result->execute();
@@ -49,13 +49,20 @@ class later
         $result = getPdo()->prepare('SELECT * FROM favoris');
         $result->execute();
         $query = getPdo()->prepare('UPDATE favoris
-        SET plus_tard = (CASE 
+        SET id_post=:id_post, id_membre=:id_membre, favoris=:favoris,
+        plus_tard = (CASE 
         WHEN plus_tard = 0 THEN plus_tard + 1 
         WHEN plus_tard = 1 THEN plus_tard - 1 
         ELSE plus_tard 
         END)');
-        var_dump($query);
 
-        $query->execute();
+        while ($row = $result->fetch()) {
+            bug($row);
+            $query->execute([
+                'id_post' => $row['id_post'],
+                'id_membre' => $row['id_membre'],
+                'favoris' => $row['favoris']
+            ]);
+        }
     }
 }
