@@ -76,6 +76,7 @@ class post extends Member
     {
 
         $member = new Member; //Variable member pour la vérification de connexion
+        $favoris = new favoris(); // Variable favoris pour vérifier le tableau des favoris/later
 
         //Si déconnecté
         if (!$member->isLogged()) {
@@ -90,53 +91,11 @@ class post extends Member
             $result->execute(['id_compte' => $id_compte]);
         }
 
-        function updateFavoris($UUID_post, $id_membre)
-        {
-            $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post AND id_membre=:id_membre');
-            $result->execute([
-                'id_post' => $UUID_post,
-                'id_membre' => $id_membre
-            ]);
-            $query = getPdo()->prepare('UPDATE favoris
-            SET favoris = (CASE 
-            WHEN favoris = 0 THEN favoris + 1 
-            WHEN favoris = 1 THEN favoris - 1 
-            ELSE favoris 
-            END) WHERE id_post=:id_post AND id_membre=:id_membre');
-
-            $query->execute([
-                'id_post' => $UUID_post,
-                'id_membre' => $id_membre
-            ]);
-            
-        }
-        function updateLater()
-        {
-            $result = getPdo()->prepare('SELECT * FROM favoris');
-            $result->execute();
-            $query = getPdo()->prepare('UPDATE favoris
-        SET id_post=:id_post, id_membre=:id_membre, favoris=:favoris,
-        plus_tard = (CASE 
-        WHEN plus_tard = 0 THEN plus_tard + 1 
-        WHEN plus_tard = 1 THEN plus_tard - 1 
-        ELSE plus_tard 
-        END)');
-
-            while ($row = $result->fetch()) {
-                $query->execute([
-                    'id_post' => $row['id_post'],
-                    'id_membre' => $row['id_membre'],
-                    'favoris' => $row['favoris']
-                ]);
-            }
-        }
-
+    
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
 
         // Attempt select query execution
-        bug($_POST);
-       
 
         $i = 0;
         print '<form action="" method="post">';
@@ -147,20 +106,19 @@ class post extends Member
             $UUID_post = $row['UUID_post'];
             // Utilisation de this-> Sinon Uncaught error
             $pseudo = $this->pseudoo((int)$UUID_post);
-           
-            $favoris = new favoris();
-            //$updateLater = $later->updateLater();
-            // $favoris->updateFavoris($UUID_post)
+
             if (array_key_exists('btn_fav', $_POST)) {
                 // $events->delete($event, $member);
                 $favoris = new favoris();
                 $favoris->updateFavoris($_POST['btn_fav'], $_SESSION['id_compte']);
                 header('Location: index.php?page=accueil');
+
             }
             if (array_key_exists('btn_later', $_POST)) {
                 // $events->delete($event, $member); 
                 $later = new later();
-                // $later->updateLater();
+                $later->updateLater($_POST['btn_later'], $_SESSION['id_compte']);
+                header('Location: index.php?page=accueil');
             }
             $i++;
 
@@ -174,10 +132,10 @@ class post extends Member
             }
             print '<div class="card-body">';
             print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-            bug($UUID_post);
+
             bug($favoris->getFavoris($UUID_post));
-            print '<button name="btn_fav" value='.$UUID_post.'>Favoris</button>';
-            print '<button name="btn_later" value"btn_later">Later</button>';
+            print '<button name="btn_fav" value=' . $UUID_post . '>Favoris</button>';
+            print '<button name="btn_later" value=' . $UUID_post . '>Later</button>';
             print '<p class="card-text">' . $row['contenu'] . '</p>';
             if ($member->isLogged()) {
                 print '<form action="index.php?page=commentaire" method="post"> 
