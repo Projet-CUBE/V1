@@ -1,11 +1,9 @@
 <?php
-
 /**
  * Cette classe va nous permettre de gérer la connexion d'un membre,
  * de vérifier la session et les cookies et enfin
  * d'accéder aux informations du membre courant.
  */
-
 class post extends Member
 {
     /**
@@ -14,14 +12,11 @@ class post extends Member
      * @var array
      */
     public $post = [];
-
     public function getPosts()
     {
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
-
         // Attempt select query execution
-
         $result = getPdo()->prepare('SELECT * FROM post');
         $result->execute();
         echo "<table>";
@@ -45,27 +40,20 @@ class post extends Member
             echo "<td>" . $row['date_publication'] . "</td>";
             echo "<td>" . $row['date_derniere_modification'] . "</td>";
             echo "<td>" . $row['label'] . "</td>";
-
-
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
-
             $UUID_post = $row['UUID_post'];
-
             print "<td>" . '<form action="index.php?page=commentaire" method="post"> 
             <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
             <input type="submit" value="Commentaire" /> 
             </form>' . "</td>";
-
             print "<td>" . '<form action="index.php?page=update" method="post"> 
             <input name="update" type="hidden" value="' . $UUID_post . '" />  
             <input type="submit" value="Update" /> 
             </form>' . "</td>";
-
             print "<td>" . '<form action="index.php?page=delete" method="post">  
             <input name="delete" type="hidden" value="' . $UUID_post . '" /> 
             <input type="submit" value="Delete" /> 
             </form>' . "</td>";
-
             echo "</tr>";
         }
         echo "</table>";
@@ -76,10 +64,8 @@ class post extends Member
 
         $member = new Member; //Variable member pour la vérification de connexion
         $favoris = new favoris(); // Variable favoris pour vérifier le tableau des favoris/later
-
         //Si déconnecté
         if (!$member->isLogged()) {
-
             $result = getPdo()->prepare('SELECT * FROM post WHERE public = 1');
             $result->execute();
         } elseif ($member->isLogged()) {
@@ -88,24 +74,23 @@ class post extends Member
 
             $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
             $result->execute(['id_compte' => $id_compte]);
+
+
+
         }
 
 
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
-
         // Attempt select query execution
-
         $i = 0;
         print '<form action="" method="post">';
         while ($row = $result->fetch()) {
             reset($_POST);
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
-
             $UUID_post = $row['UUID_post'];
             // Utilisation de this-> Sinon Uncaught error
             $pseudo = $this->pseudoo((int)$UUID_post);
-
             if (array_key_exists('btn_fav', $_POST)) {
                 // $events->delete($event, $member);
                 $favoris = new favoris();
@@ -119,7 +104,6 @@ class post extends Member
                 header('Location: index.php?page=accueil');
             }
             $i++;
-
             if ($i === 1) {
                 print '<div class="row">';
             }
@@ -130,9 +114,6 @@ class post extends Member
             }
             print '<div class="card-body">';
             print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-
-
-
             print '<p class="card-text">' . $row['contenu'] . '</p>';
             if ($member->isLogged()) {
                 $favoris->getFavorisIcon($UUID_post) == 0 ?
@@ -146,20 +127,17 @@ class post extends Member
                                         <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
                                         <input type="submit" value="Commentaire" /> 
                                         </form>';
-
                 if ($member->get('pseudo') == $pseudo['pseudo']) {
                     print '<form action="index.php?page=update" method="post"> 
                                             <input name="update" type="hidden" value="' . $UUID_post . '" />  
                                             <input type="submit" value="Update" /> 
                                             </form>';
-
                     print '<form action="index.php?page=delete" method="post">  
                                             <input name="delete" type="hidden" value="' . $UUID_post . '" /> 
                                             <input type="submit" value="Delete" /> 
                                             </form>';
                 }
             }
-
             print '</div>';
             print '</div>';
             print '</div>';
@@ -167,8 +145,6 @@ class post extends Member
         print '</form>';
         print '</div>';
     }
-
-
     public function pseudoo(int $id_membre): array
     {
         $query = getPdo()->prepare('SELECT pseudo FROM compte
@@ -176,18 +152,14 @@ class post extends Member
         ON compte.id_compte = post.FK_id_membre 
         WHERE post.UUID_post = "' . $id_membre . '"
         LIMIT 1');
-
         $query->execute();
-
         return $query->fetch();
     }
-
     public function insertPosts()
     {
         //
         $query = getPdo()->prepare('INSERT INTO post (titre, sous_titre, contenu, publie, date_publication, date_derniere_modification, label, FK_id_membre) 
                                      VALUES (:titre, :sous_titre, :contenu, :publie, NOW(), NOW(), :label, :FK_id_membre)');
-
         $query->execute([
             'titre' => "Test 1",
             'sous_titre' => "Hello World",
@@ -197,14 +169,11 @@ class post extends Member
             'FK_id_membre' => $_SESSION['id_compte']
         ]);
     }
-
     public function updatePosts(int $_UUID_post, string $_contenu, string $_image_file, string $_name)
     {
-
         $query = getPdo()->prepare('UPDATE post 
         SET contenu = :contenu, date_derniere_modification = NOW(), image = :image, name_image = :name_image
         WHERE UUID_post = :UUID_post');
-
         $query->execute([
             'contenu' => $_contenu,
             'image' => $_image_file,
@@ -212,38 +181,29 @@ class post extends Member
             'UUID_post'  => $_UUID_post
         ]);
     }
-
     public function deletePosts(int $_UUID_post)
     {
-
         // $comTrue = getPdo()->prepare('SELECT * FROM post p INNER JOIN commentaire c ON p.UUID_post = c.id_post WHERE c.commentaire IS NOT NULL');
         // $comTrue->execute();
-
         // var_dump($comTrue);
         // if($comTrue){
-
         //     //Requete suppression commentaire lié
         //     $com = getPdo()->prepare('DELETE c FROM commentaire c 
         //     INNER JOIN post p ON c.id_post = p.UUID_post 
         //     WHERE p.UUID_post = :UUID_post
         //     AND c.id_post = :UUID_post');
         //     $com->execute();
-
         //     //suppression du post
         //     $query = getPdo()->prepare('DELETE p FROM post p 
         //     INNER JOIN commentaire c ON p.UUID_post = c.id_post
         //     WHERE p.UUID_post = :UUID_post
         //     AND c.id_post = :UUID_post');
-
         //     $query->execute([
         //         'UUID_post' => $_UUID_post
         //     ]);
-
         // }else{
-
         $query = getPdo()->prepare('DELETE FROM post 
             WHERE UUID_post = :UUID_post');
-
         $query->execute([
             'UUID_post' => $_UUID_post
         ]);
