@@ -8,14 +8,14 @@
 
  class categorie
 {
-    public function insertCategorie()
+    public function insertCategorie($nom)
     {
         //
         $query = getPdo()->prepare('INSERT INTO categorie (nom) 
                                      VALUES (:nom)');
         
         $query->execute([
-            'nom' => "categorie 1"
+            'nom' => $nom
         ]);
     }
 
