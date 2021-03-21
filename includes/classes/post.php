@@ -24,7 +24,6 @@ class post extends Member
 
         $result = getPdo()->prepare('SELECT * FROM post');
         $result->execute();
-
         echo "<table>";
         echo "<tr>";
         echo "<th>UUID_Post</th>";
@@ -91,7 +90,7 @@ class post extends Member
             $result->execute(['id_compte' => $id_compte]);
         }
 
-    
+
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
 
@@ -112,7 +111,6 @@ class post extends Member
                 $favoris = new favoris();
                 $favoris->updateFavoris($_POST['btn_fav'], $_SESSION['id_compte']);
                 header('Location: index.php?page=accueil');
-
             }
             if (array_key_exists('btn_later', $_POST)) {
                 // $events->delete($event, $member); 
@@ -133,11 +131,17 @@ class post extends Member
             print '<div class="card-body">';
             print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
 
-            bug($favoris->getFavoris($UUID_post));
-            print '<button name="btn_fav" value=' . $UUID_post . '>Favoris</button>';
-            print '<button name="btn_later" value=' . $UUID_post . '>Later</button>';
+
+
             print '<p class="card-text">' . $row['contenu'] . '</p>';
             if ($member->isLogged()) {
+                $favoris->getFavorisIcon($UUID_post) == 0 ?
+                print '<button  name="btn_fav" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-star"></i></button>' :
+                print '<button name="btn_fav" value=' . $UUID_post . '  style="border:none;background-color:transparent;"><i class="bi bi-star-fill"></i></button>';
+                $favoris->getLaterIcon($UUID_post) == 0 ?   
+                print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-clock"></i></button>':
+                print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-check-circle"></i></button>';
+                
                 print '<form action="index.php?page=commentaire" method="post"> 
                                         <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
                                         <input type="submit" value="Commentaire" /> 

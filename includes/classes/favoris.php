@@ -65,4 +65,31 @@ class favoris
             'id_membre' => $id_membre
         ]);
     }
+
+
+
+    public function getFavorisIcon($UUID_post)
+    {
+        $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post');
+        $result->execute([
+            'id_post' => $UUID_post
+        ]);
+
+        while ($row = $result->fetch()) {
+            $fav_value = $row['favoris'];
+            return $fav_value;
+        }
+    }
+    public function getLaterIcon($UUID_post)
+    {
+        $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post');
+        $result->execute([
+            'id_post' => $UUID_post
+        ]);
+
+        while ($row = $result->fetch()) {
+            $fav_value = $row['plus_tard'];
+            return $fav_value;
+        }
+    }
 }

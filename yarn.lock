@@ -2,3 +2,7 @@
 # yarn lockfile v1
 
 
+"bootstrap-icons@^1.4.0":
+  "integrity" "sha512-EynaOv/G/X/sQgPUqkdLJoxPrWk73wwsVjVR3cDNYO0jMS58poq7DOC2CraBWlBt1AberEmt0blfw4ony2/ZIg=="
+  "resolved" "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.4.0.tgz"
+  "version" "1.4.0"
