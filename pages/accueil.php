@@ -31,7 +31,17 @@ Bonjour
 </form>
 
 
-<?= $post->getPostsCard()?>
+<?php
+//var_dump($_POST['categorie']);
+if (isset($_POST['categorie'])) 
+{
+    $post->getPostsCard((int)$_POST['categorie']);
+}
+else {
+    $post->getPostsCard(3);
+}
+
+?>
 <!-- <p>Later :
     < ?= $later->getLater()?>
     < !-- à décommenter pour update le champ à regarder à plus tard)

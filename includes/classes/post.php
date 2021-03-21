@@ -72,7 +72,7 @@ class post extends Member
         echo "</table>";
     }
     
-    public function getPostsCard()
+    public function getPostsCard($trie)
     {
 
         $member = new Member; //Variable member pour la vérification de connexion
@@ -87,8 +87,24 @@ class post extends Member
 
             $id_compte = (int)$_SESSION['id_compte'];
             
-            $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
-            $result->execute(['id_compte' => $id_compte]);
+            if ($trie === 3) {
+                
+                $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+                $result->execute(['id_compte' => $id_compte]);
+                
+                }
+
+            else if (isset($trie)) {
+                $result = getPdo()->prepare('SELECT * FROM compte c 
+                INNER JOIN post p ON c.id_compte = p.FK_id_membre
+                INNER JOIN objet_categorie ob ON ob.FK_id_post = p.UUID_post
+                INNER JOIN categorie cat ON cat.id_categorie = ob.FK_id_categorie
+                WHERE ob.FK_id_categorie = :id_categorie');
+                $result->execute([
+                'id_categorie' => $trie]);
+            }
+            
+              
             
         }
         

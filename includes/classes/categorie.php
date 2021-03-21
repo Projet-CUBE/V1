@@ -48,13 +48,13 @@
         ]);
     }
 
-    public function deleteCategorie()
+    public function deleteCategorie($id_categorie)
     {
         $query = getPdo()->prepare('DELETE FROM categorie 
         WHERE id_categorie = :id_categorie');
 
         $query->execute([
-        'id_categorie' => 3
+        'id_categorie' => $id_categorie
         ]);
     }
 }
