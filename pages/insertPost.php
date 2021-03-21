@@ -25,8 +25,6 @@ $name = $_REQUEST['txt_name']; // TextBox name "txt_name"
 
 $categorie = (int)$_POST['categorie']; // Selecctor de categorie
 
-echo $categorie;
-
 $image_file = $_FILES['txt_file']['name'];
 $type = $_FILES['txt_file']['type']; // file name "txt_file"
 $size = $_FILES['txt_file']['size'];
