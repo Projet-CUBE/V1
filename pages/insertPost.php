@@ -80,7 +80,7 @@ if ($query->execute([
     $friendSelect->execute();
 
     $id_friend = $friendSelect->fetch();
-    
+
     //Execute l'insertion dans la table favoris
     $querySelect->execute([
         'FK_id_membre' =>  $_SESSION['id_compte']
@@ -96,7 +96,6 @@ if ($query->execute([
         'FK_id_compte' => $_SESSION['id_compte'],
         'id_friend' => $id_friend['id_compte']
     ]);
-
     }
 
 
