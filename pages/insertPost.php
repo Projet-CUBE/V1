@@ -80,15 +80,25 @@ if ($query->execute([
     $friendSelect->execute();
 
     $id_friend = $friendSelect->fetch();
-
-    //Requete insert pour protected_post
-    $protectedFriend = getPdo()->prepare('INSERT INTO protected_post (FK_id_post, FK_id_compte, id_friend) VALUES (:FK_id_post, :FK_id_compte, :id_friend)');
-
+    
     //Execute l'insertion dans la table favoris
     $querySelect->execute([
         'FK_id_membre' =>  $_SESSION['id_compte']
     ]);
     $id_post = $querySelect->fetch();
+
+    if ($protected == 1) {
+    //Requete insert pour protected_post
+    $protectedFriend = getPdo()->prepare('INSERT INTO protected_post (FK_id_post, FK_id_compte, id_friend) VALUES (:FK_id_post, :FK_id_compte, :id_friend)');
+    
+    $protectedFriend->execute([    //Execute l'insertion dans la table protected_post
+        'FK_id_post' => $id_post['UUID_post'],
+        'FK_id_compte' => $_SESSION['id_compte'],
+        'id_friend' => $id_friend['id_compte']
+    ]);
+
+    }
+
 
     $queryFav->execute([
         'id_post' => $id_post['UUID_post'],
@@ -97,11 +107,6 @@ if ($query->execute([
         'plus_tard' => 0,
     ]);
 
-    $protectedFriend->execute([    //Execute l'insertion dans la table protected_post
-        'FK_id_post' => $id_post['UUID_post'],
-        'FK_id_compte' => $_SESSION['id_compte'],
-        'id_friend' => $id_friend['id_compte']
-    ]);
     $queryCate->execute([
         'FK_id_categorie' => $categorie,
         'FK_id_post' => $id_post['UUID_post'],

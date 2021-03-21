@@ -143,24 +143,24 @@ class post extends Member
             }
             $i++;
 
-                if ($i===1) {
-                    print '<div class="row">';
-                }
-                    print '<div class="col-sm-6">';
-                        print '<div class="card">';//Vérifier si le post est privé ou public
-                            if($row['image']){
-                                print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
+            if ($i===1) {
+                print '<div class="row">';
+            }
+                print '<div class="col-sm-6">';
+                    print '<div class="card">';//Vérifier si le post est privé ou public
+                        if($row['image']){
+                            print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
+                        }
+                        print '<div class="card-body">'; 
+                            print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
+                            
+                            if($row['public']==1){
+                                echo '<img src="../webroot/img/users.png" height="30"/>';
+                            }elseif($row['private']==1){
+                                echo '<img src="../webroot/img/lock.png" height="30"/>';
+                            }else{
+                                echo '<img src="../webroot/img/friend.png" height="30"/>';
                             }
-                            print '<div class="card-body">'; 
-                                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-                                
-                                if($row['public']==1){
-                                    echo '<img src="../webroot/img/users.png" height="30"/>';
-                                }elseif($row['private']==1){
-                                    echo '<img src="../webroot/img/lock.png" height="30"/>';
-                                }else{
-                                    echo '<img src="../webroot/img/friend.png" height="30"/>';
-                                }
 
 
             print '<p class="card-text">' . $row['contenu'] . '</p>';
@@ -168,7 +168,7 @@ class post extends Member
                 $favoris->getFavorisIcon($UUID_post) == 0 ?
                 print '<button  name="btn_fav" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-star"></i></button>' :
                 print '<button name="btn_fav" value=' . $UUID_post . '  style="border:none;background-color:transparent;"><i class="bi bi-star-fill"></i></button>';
-                $favoris->getLaterIcon($UUID_post) == 0 ?   
+                $favoris->getLaterIcon($UUID_post) == 0 ?
                 print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-clock"></i></button>':
                 print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-check-circle"></i></button>';
                 
