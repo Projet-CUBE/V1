@@ -85,9 +85,18 @@ class post extends Member
         } elseif ($member->isLogged()) {
 
             $id_compte = (int)$_SESSION['id_compte'];
-            $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
-            $result->execute(['id_compte' => $id_compte]);
+            
+            $result = getPdo()->prepare('SELECT * FROM post p 
+            INNER JOIN compte c ON c.id_compte = p.FK_id_membre 
+            INNER JOIN protected_post pp ON pp.FK_id_post = p.UUID_post
+            WHERE public = 1 
+            OR private = 1 AND id_compte = :id_compte
+            OR protected = 1');
 
+            $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+
+            $result->execute(['id_compte' => $id_compte]);
+        }
             
             if ($trie === 3) {
                 
@@ -137,6 +146,31 @@ class post extends Member
                 header('Location: index.php?page=accueil');
             }
             $i++;
+
+                if ($i===1) {
+                    print '<div class="row">';
+                }
+                    print '<div class="col-sm-6">';
+                        print '<div class="card">';//Vérifier si le post est privé ou public
+                            if($row['image']){
+                                print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
+                            }
+                            print '<div class="card-body">'; 
+                                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
+                                print '<button onclick="">Favoris</button>'; 
+
+                                if($row['public']==1){
+                                    echo '<img src="../webroot/img/users.png" height="30"/>';
+                                }elseif($row['private']==1){
+                                    echo '<img src="../webroot/img/lock.png" height="30"/>';
+                                }else{
+                                    echo '<img src="../webroot/img/friend.png" height="30"/>';
+                                }
+
+                                print '<p class="card-text">' . $row['contenu'] . '</p>';
+                                    if($member->isLogged()){
+                                        print '<form action="index.php?page=commentaire" method="post"> 
+                                        <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
 
             if ($i === 1) {
                 print '<div class="row">';
