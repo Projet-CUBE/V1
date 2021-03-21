@@ -153,8 +153,7 @@ class post extends Member
                             }
                             print '<div class="card-body">'; 
                                 print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-                                print '<button onclick="">Favoris</button>'; 
-
+                                
                                 if($row['public']==1){
                                     echo '<img src="../webroot/img/users.png" height="30"/>';
                                 }elseif($row['private']==1){
