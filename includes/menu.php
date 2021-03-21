@@ -35,6 +35,7 @@ if (isset($_SESSION['liste']) == NULL) {
                   <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestion des comptes")."</div>";?></a>
                   <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Evènements")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profil")."</div>";?></a>
+                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
                   <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Déconnexion")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
                 <?php else: ?>
@@ -50,6 +51,7 @@ if (isset($_SESSION['liste']) == NULL) {
                   <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Account management")."</div>";?></a>
                   <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Events")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profile")."</div>";?></a>
+                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
                   <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnection")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
                 <?php else: ?>
@@ -65,6 +67,7 @@ if (isset($_SESSION['liste']) == NULL) {
                   <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Administración de cuentas")."</div>";?></a>
                   <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventos")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Perfil")."</div>";?></a>
+                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorías")."</div>";?></a>
                   <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Desconexión")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
                 <?php else: ?>
@@ -80,6 +83,7 @@ if (isset($_SESSION['liste']) == NULL) {
                   <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestione contabile")."</div>";?></a>
                   <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventi")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profilo")."</div>";?></a>
+                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorie")."</div>";?></a>
                   <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnessione")."</div>";?></a>
                   <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
                 <?php else: ?>

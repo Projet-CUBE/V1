@@ -23,6 +23,10 @@ if ($_POST['protection'] == 'private') {
 //Image
 $name = $_REQUEST['txt_name']; // TextBox name "txt_name"
 
+$categorie = (int)$_POST['categorie']; // Selecctor de categorie
+
+echo $categorie;
+
 $image_file = $_FILES['txt_file']['name'];
 $type = $_FILES['txt_file']['type']; // file name "txt_file"
 $size = $_FILES['txt_file']['size'];
@@ -56,6 +60,8 @@ VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image, :private, 
 $querySelect = getPdo()->prepare("SELECT UUID_post from post WHERE FK_id_membre=:FK_id_membre ORDER BY UUID_post DESC LIMIT 0, 1");
 $queryFav = getPdo()->prepare('INSERT INTO favoris (id_post, id_membre, favoris, plus_tard) 
 VALUES (:id_post, :id_membre, :favoris, :plus_tard)');
+$queryCate = getPdo()->prepare('INSERT INTO objet_categorie (FK_id_categorie, FK_id_post) 
+VALUES (:FK_id_categorie, :FK_id_post)');
 
 if ($query->execute([
     'contenu' => $name,
@@ -97,6 +103,11 @@ if ($query->execute([
         'FK_id_post' => $id_post['UUID_post'],
         'FK_id_compte' => $_SESSION['id_compte'],
         'id_friend' => $id_friend['id_compte']
+    ]);
+    $queryCate->execute([
+        'FK_id_categorie' => $categorie,
+        'FK_id_post' => $id_post['UUID_post'],
+
     ]);
 
     $insertMsg = "File Upload Successfully . . . . ."; // Execute query success message

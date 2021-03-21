@@ -1,3 +1,4 @@
+
 <?php
 
 $pdo = getPdo();
@@ -22,19 +23,41 @@ $data = [
     'description' => $event->getDescription()
 ];
 
+
 function delete(Event $event, $member)
-{        
-        $statement = getPdo()->prepare('DELETE FROM evenements WHERE id_event = ? AND id_compte = ?');
-        $statement->execute([
-            $event->getId(),
-            $member->get('id_compte'),
-        ]);
+{
+    $statement = getPdo()->prepare('DELETE FROM evenements WHERE id_event = ? AND id_compte = ?');
+    $statement->execute([
+        $event->getId(),
+        $member->get('id_compte'),
+    ]);
 }
 
-if(array_key_exists('button1', $_POST)) { 
+//UPDATE evenements SET name = 'ff20', description = 'au dd', start = NOW(), end = '2021-03-20 20:00:00', id_compte = 5 WHERE id_event = 23
+
+
+function update(Event $event, $member)
+{
+    $statement = getPdo()->prepare('UPDATE evenements SET name =:name, description =:description, start =:start, end =:end, id_compte =:id_compte WHERE id_event =:id_event');
+
+    $statement->execute([
+        'name' => $_POST['name'],
+        'description' => $_POST['description'],
+        'start' => $_POST['date'] .' '. $_POST['start'].':00',
+        'end' =>  $_POST['date'] .' '. $_POST['end'].':00',
+        'id_compte' => $member->get('id_compte'),
+        'id_event' => $event->getId()
+    ]);
+}
+
+if (array_key_exists('button2', $_POST)) {
     // $events->delete($event, $member); 
     delete($event, $member);
-} 
+}
+if (array_key_exists('button1', $_POST)) {
+    // $events->delete($event, $member); 
+    update($event, $member);
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -69,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Editer l'évènement <small><?= h($event->getName()); ?></small></h1>
     <div class="container">
 
-    <form action="" method="post" class="form"> 
+        <form action="" method="post" class="form">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -122,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <textarea name="description" id="description" class="form-control"><?= isset($data['description']) ? h($data['description']) : ''; ?></textarea>
             </div>
             <div class="form-goup">
-                <button class="btn btn-primary">Modifier l'évènement</button>
-                <button class="btn btn-danger" name="button1" value="Button1">Supprimer l'évènement</button>
+                <button class="btn btn-primary" name="button1" value="ButtonEdit">Modifier l'évènement</button>
+                <button class="btn btn-danger" name="button2" value="ButtonDelete">Supprimer l'évènement</button>
             </div>
         </form>
     </div>

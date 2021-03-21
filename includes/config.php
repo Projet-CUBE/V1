@@ -89,7 +89,12 @@ return [
             'file' => 'insertCommentaire.php',
             'title' => 'Inserer un commentaire',
             'protected' => true,
-        ],    
+        ],     
+        'insertCategories' => [
+            'file' => 'insertCategories.php',
+            'title' => 'Inserer un commentaire',
+            'protected' => true,
+        ],   
         'update' => [
             'file' => 'update.php',
             'title' => 'Update',

@@ -24,7 +24,6 @@ class post extends Member
 
         $result = getPdo()->prepare('SELECT * FROM post');
         $result->execute();
-
         echo "<table>";
         echo "<tr>";
         echo "<th>UUID_Post</th>";
@@ -49,21 +48,21 @@ class post extends Member
 
 
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
-            
+
             $UUID_post = $row['UUID_post'];
 
             print "<td>" . '<form action="index.php?page=commentaire" method="post"> 
-            <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
+            <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
             <input type="submit" value="Commentaire" /> 
             </form>' . "</td>";
 
             print "<td>" . '<form action="index.php?page=update" method="post"> 
-            <input name="update" type="hidden" value="'. $UUID_post . '" />  
+            <input name="update" type="hidden" value="' . $UUID_post . '" />  
             <input type="submit" value="Update" /> 
             </form>' . "</td>";
 
             print "<td>" . '<form action="index.php?page=delete" method="post">  
-            <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
+            <input name="delete" type="hidden" value="' . $UUID_post . '" /> 
             <input type="submit" value="Delete" /> 
             </form>' . "</td>";
 
@@ -71,19 +70,19 @@ class post extends Member
         }
         echo "</table>";
     }
-    
-    public function getPostsCard()
+
+    public function getPostsCard($trie)
     {
 
         $member = new Member; //Variable member pour la vérification de connexion
+        $favoris = new favoris(); // Variable favoris pour vérifier le tableau des favoris/later
 
         //Si déconnecté
-        if(!$member->isLogged()){
+        if (!$member->isLogged()) {
 
             $result = getPdo()->prepare('SELECT * FROM post WHERE public = 1');
             $result->execute();
-
-        }elseif($member->isLogged()){
+        } elseif ($member->isLogged()) {
 
             $id_compte = (int)$_SESSION['id_compte'];
             
@@ -94,24 +93,58 @@ class post extends Member
             OR private = 1 AND id_compte = :id_compte
             OR protected = 1');
 
+            $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+
             $result->execute(['id_compte' => $id_compte]);
+        }
+            
+            if ($trie === 3) {
+                
+                $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+                $result->execute(['id_compte' => $id_compte]);
+                
+                }
+
+            else if (isset($trie)) {
+                $result = getPdo()->prepare('SELECT * FROM compte c 
+                INNER JOIN post p ON c.id_compte = p.FK_id_membre
+                INNER JOIN objet_categorie ob ON ob.FK_id_post = p.UUID_post
+                INNER JOIN categorie cat ON cat.id_categorie = ob.FK_id_categorie
+                WHERE ob.FK_id_categorie = :id_categorie');
+                $result->execute([
+                'id_categorie' => $trie]);
+            }
             
         }
-        
+
+
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
 
         // Attempt select query execution
 
         $i = 0;
+        print '<form action="" method="post">';
         while ($row = $result->fetch()) {
-
+            reset($_POST);
             // https://stackoverflow.com/questions/10526475/how-to-get-row-id-in-button-click
-            
+
             $UUID_post = $row['UUID_post'];
             // Utilisation de this-> Sinon Uncaught error
-            $pseudo = $this->pseudoo((int)$UUID_post); 
-            
+            $pseudo = $this->pseudoo((int)$UUID_post);
+
+            if (array_key_exists('btn_fav', $_POST)) {
+                // $events->delete($event, $member);
+                $favoris = new favoris();
+                $favoris->updateFavoris($_POST['btn_fav'], $_SESSION['id_compte']);
+                header('Location: index.php?page=accueil');
+            }
+            if (array_key_exists('btn_later', $_POST)) {
+                // $events->delete($event, $member); 
+                $later = new later();
+                $later->updateLater($_POST['btn_later'], $_SESSION['id_compte']);
+                header('Location: index.php?page=accueil');
+            }
             $i++;
 
                 if ($i===1) {
@@ -138,32 +171,57 @@ class post extends Member
                                     if($member->isLogged()){
                                         print '<form action="index.php?page=commentaire" method="post"> 
                                         <input name="commentaire" type="hidden" value="'. $UUID_post . '" /> 
+
+            if ($i === 1) {
+                print '<div class="row">';
+            }
+            print '<div class="col-sm-6">';
+            print '<div class="card">'; //Vérifier si le post est privé ou public
+            if ($row['image']) {
+                print '<img class="card-img-top" src="../upload/' . $row['image'] . '" alt="Card image cap">';
+            }
+            print '<div class="card-body">';
+            print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
+
+
+
+            print '<p class="card-text">' . $row['contenu'] . '</p>';
+            if ($member->isLogged()) {
+                $favoris->getFavorisIcon($UUID_post) == 0 ?
+                print '<button  name="btn_fav" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-star"></i></button>' :
+                print '<button name="btn_fav" value=' . $UUID_post . '  style="border:none;background-color:transparent;"><i class="bi bi-star-fill"></i></button>';
+                $favoris->getLaterIcon($UUID_post) == 0 ?   
+                print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-clock"></i></button>':
+                print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-check-circle"></i></button>';
+                
+                print '<form action="index.php?page=commentaire" method="post"> 
+                                        <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
                                         <input type="submit" value="Commentaire" /> 
                                         </form>';
-                                        
-                                        if($member->get('pseudo')==$pseudo['pseudo']){
-                                            print '<form action="index.php?page=update" method="post"> 
-                                            <input name="update" type="hidden" value="'. $UUID_post . '" />  
+
+                if ($member->get('pseudo') == $pseudo['pseudo']) {
+                    print '<form action="index.php?page=update" method="post"> 
+                                            <input name="update" type="hidden" value="' . $UUID_post . '" />  
                                             <input type="submit" value="Update" /> 
                                             </form>';
-                                
-                                            print '<form action="index.php?page=delete" method="post">  
-                                            <input name="delete" type="hidden" value="'. $UUID_post . '" /> 
+
+                    print '<form action="index.php?page=delete" method="post">  
+                                            <input name="delete" type="hidden" value="' . $UUID_post . '" /> 
                                             <input type="submit" value="Delete" /> 
                                             </form>';
-                                        }
-                                    }
-                                
-                            print '</div>';                          
-                        print '</div>';
-                    print '</div>';
-            
-        }       
-                print '</div>';
+                }
+            }
+
+            print '</div>';
+            print '</div>';
+            print '</div>';
+        }
+        print '</form>';
+        print '</div>';
     }
 
 
-    public function pseudoo(int $id_membre) : array
+    public function pseudoo(int $id_membre): array
     {
         $query = getPdo()->prepare('SELECT pseudo FROM compte
         INNER JOIN post 
@@ -192,7 +250,7 @@ class post extends Member
         ]);
     }
 
-    public function updatePosts( int $_UUID_post, string $_contenu, string $_image_file, string $_name)
+    public function updatePosts(int $_UUID_post, string $_contenu, string $_image_file, string $_name)
     {
 
         $query = getPdo()->prepare('UPDATE post 
@@ -235,16 +293,11 @@ class post extends Member
 
         // }else{
 
-            $query = getPdo()->prepare('DELETE FROM post 
+        $query = getPdo()->prepare('DELETE FROM post 
             WHERE UUID_post = :UUID_post');
 
-            $query->execute([
-                'UUID_post' => $_UUID_post
-            ]);
-
-        
-        
-
+        $query->execute([
+            'UUID_post' => $_UUID_post
+        ]);
     }
-
 }

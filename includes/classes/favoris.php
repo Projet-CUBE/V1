@@ -16,12 +16,14 @@ class favoris
 
 
 
-    public function getFavoris()
+    public function getFavoris($UUID_post)
     {
 
 
-        $result = getPdo()->prepare('SELECT * FROM favoris');
-        $result->execute();
+        $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post');
+        $result->execute([
+            'id_post' => $UUID_post
+        ]);
 
         echo "<table>";
         echo "<tr>";
@@ -44,24 +46,50 @@ class favoris
     }
 
 
-    public function updateFavoris()
+    public function updateFavoris($UUID_post, $id_membre)
     {
-        $result = getPdo()->prepare('SELECT * FROM favoris');
-        $result->execute();
+        $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post AND id_membre=:id_membre');
+        $result->execute([
+            'id_post' => $UUID_post,
+            'id_membre' => $id_membre
+        ]);
         $query = getPdo()->prepare('UPDATE favoris
-            SET id_post=:id_post, id_membre=:id_membre, plus_tard=:plus_tard,
-            favoris = (CASE 
+            SET favoris = (CASE 
             WHEN favoris = 0 THEN favoris + 1 
             WHEN favoris = 1 THEN favoris - 1 
             ELSE favoris 
-            END)');
+            END) WHERE id_post=:id_post  AND id_membre=:id_membre');
+
+        $query->execute([
+            'id_post' => $UUID_post,
+            'id_membre' => $id_membre
+        ]);
+    }
+
+
+
+    public function getFavorisIcon($UUID_post)
+    {
+        $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post');
+        $result->execute([
+            'id_post' => $UUID_post
+        ]);
+
         while ($row = $result->fetch()) {
-            bug($row);
-            $query->execute([
-                'id_post' => $row['id_post'],
-                'id_membre' => $row['id_membre'],
-                'plus_tard' => $row['plus_tard']                
-            ]);
+            $fav_value = $row['favoris'];
+            return $fav_value;
+        }
+    }
+    public function getLaterIcon($UUID_post)
+    {
+        $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post');
+        $result->execute([
+            'id_post' => $UUID_post
+        ]);
+
+        while ($row = $result->fetch()) {
+            $fav_value = $row['plus_tard'];
+            return $fav_value;
         }
     }
 }

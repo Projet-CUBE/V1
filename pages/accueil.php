@@ -10,7 +10,38 @@ Bonjour
     
 </p>
 -->
-<?= $post->getPostsCard()?>
+<form action="index.php?page=accueil" method="post">
+   <p>
+      <label for="categorie">categories</label>
+      <select name="categorie" id="categorie">
+      <?php 
+            foreach ($categorie->selectCategorie() as $id) :
+                ?>
+                <option value="<?= $id['id_categorie']?>"> 
+                <?= $id['nom']?> 
+                </option>
+                <?php endforeach; ?>
+      </select>
+    </p>
+
+   <p>
+   <button class="btn btn-primary" type="submit" >Categories</button>
+   </p>
+
+</form>
+
+
+<?php
+//var_dump($_POST['categorie']);
+if (isset($_POST['categorie'])) 
+{
+    $post->getPostsCard((int)$_POST['categorie']);
+}
+else {
+    $post->getPostsCard(3);
+}
+
+?>
 <!-- <p>Later :
     < ?= $later->getLater()?>
     < !-- à décommenter pour update le champ à regarder à plus tard)
@@ -167,6 +198,15 @@ Bonjour
                 <a href="index.php" class="btn btn-danger">Cancel</a>
             </div>
         </div>
-
+        <label for="categorie">categories</label>
+      <select name="categorie" id="categorie">
+      <?php 
+            foreach ($categorie->selectCategorie() as $id) :
+                ?>
+                <option value="<?= $id['id_categorie']?>"> 
+                <?= $id['nom']?> 
+                </option>
+                <?php endforeach; ?>
+      </select>
     </form>
 <?php endif; ?>
