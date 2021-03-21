@@ -98,10 +98,15 @@ class post extends Member
             
             if ($trie === 3) {
                 
-                $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+                $result = getPdo()->prepare('SELECT * FROM post p 
+                INNER JOIN compte c ON c.id_compte = p.FK_id_membre 
+                INNER JOIN protected_post pp ON pp.FK_id_post = p.UUID_post
+                WHERE public = 1 
+                OR private = 1 AND id_compte = :id_compte
+                OR protected = 1');
                 $result->execute(['id_compte' => $id_compte]);
                 
-                }
+            }
 
             else if (isset($trie)) {
                 $result = getPdo()->prepare('SELECT * FROM compte c 
