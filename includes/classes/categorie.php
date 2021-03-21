@@ -8,15 +8,32 @@
 
  class categorie
 {
-    public function insertCategorie()
+    public function insertCategorie($nom)
     {
         //
         $query = getPdo()->prepare('INSERT INTO categorie (nom) 
                                      VALUES (:nom)');
         
         $query->execute([
-            'nom' => "categorie 1"
+            'nom' => $nom
         ]);
+    }
+
+    public function selectCategorie()
+    {
+        //
+        $query = getPdo()->prepare('SELECT * FROM categorie');
+        
+        $query->execute();    
+
+        $i = 0;
+
+        while ($row = $query->fetch()) {
+            $statut[$i++] = $row;
+            var_dump($row);
+        }
+
+        return $statut;
     }
 
     public function updateCategorie()
@@ -31,13 +48,13 @@
         ]);
     }
 
-    public function deleteCategorie()
+    public function deleteCategorie($id_categorie)
     {
         $query = getPdo()->prepare('DELETE FROM categorie 
         WHERE id_categorie = :id_categorie');
 
         $query->execute([
-        'id_categorie' => 3
+        'id_categorie' => $id_categorie
         ]);
     }
 }
