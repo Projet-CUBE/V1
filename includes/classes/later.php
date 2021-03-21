@@ -44,25 +44,23 @@ class later
     }
 
 
-    public function updateLater()
+    public function updateLater($UUID_post, $id_membre)
     {
-        $result = getPdo()->prepare('SELECT * FROM favoris');
-        $result->execute();
+        $result = getPdo()->prepare('SELECT * FROM favoris WHERE id_post=:id_post AND id_membre=:id_membre');
+        $result->execute([
+            'id_post' => $UUID_post,
+            'id_membre' => $id_membre
+        ]);
         $query = getPdo()->prepare('UPDATE favoris
-        SET id_post=:id_post, id_membre=:id_membre, favoris=:favoris,
-        plus_tard = (CASE 
+        SET plus_tard = (CASE 
         WHEN plus_tard = 0 THEN plus_tard + 1 
         WHEN plus_tard = 1 THEN plus_tard - 1 
         ELSE plus_tard 
-        END)');
-
-        while ($row = $result->fetch()) {
-            bug($row);
-            $query->execute([
-                'id_post' => $row['id_post'],
-                'id_membre' => $row['id_membre'],
-                'favoris' => $row['favoris']
-            ]);
-        }
+        END) WHERE id_post=:id_post AND id_membre=:id_membre');
+        
+        $query->execute([
+            'id_post' => $UUID_post,
+            'id_membre' => $id_membre
+        ]);
     }
 }
