@@ -55,7 +55,11 @@ if (empty($name)) {
 
 $query = getPdo()->prepare('INSERT INTO post (contenu, publie, date_publication, FK_id_membre, image, name_image, private, public, protected) 
 VALUES (:contenu, :publie, NOW(), :FK_id_membre, :image, :name_image, :private, :public, :protected)');
-
+$querySelect = getPdo()->prepare("SELECT UUID_post from post WHERE FK_id_membre=:FK_id_membre ORDER BY UUID_post DESC LIMIT 0, 1");
+$queryFav = getPdo()->prepare('INSERT INTO favoris (id_post, id_membre, favoris, plus_tard) 
+VALUES (:id_post, :id_membre, :favoris, :plus_tard)');
+$queryCate = getPdo()->prepare('INSERT INTO objet_categorie (FK_id_categorie, FK_id_post) 
+VALUES (:FK_id_categorie, :FK_id_post)');
 
 if ($query->execute([
     'contenu' => $name,
@@ -66,34 +70,42 @@ if ($query->execute([
     ':private' => $private,
     ':public' => $public,
     ':protected' => $protected
-])) {
+    ])) 
+{
 
-    // $friend = $_POST['pseudoFriend'];
-    // $friendSelect = getPdo()->prepare('SELECT id_compte FROM compte WHERE pseudo="'.$friend.'"');
-    // $friendSelect->execute();
+    //Récupère l'id de l'utilisateur qui pourra voir le post partagé
+    $friend = $_POST['pseudoFriend'];
 
-    // $id_friend = $friendSelect->fetch();
+    $friendSelect = getPdo()->prepare('SELECT id_compte FROM compte WHERE pseudo="'.$friend.'"');
+    $friendSelect->execute();
 
+    $id_friend = $friendSelect->fetch();
 
-    $querySelect = getPdo()->prepare("SELECT UUID_post from post WHERE FK_id_membre=:FK_id_membre ORDER BY UUID_post DESC LIMIT 0, 1");
+    //Execute l'insertion dans la table favoris
     $querySelect->execute([
         'FK_id_membre' =>  $_SESSION['id_compte']
     ]);
     $id_post = $querySelect->fetch();
-    $queryFav = getPdo()->prepare('INSERT INTO favoris (id_post, id_membre, favoris, plus_tard) 
-    VALUES (:id_post, :id_membre, :favoris, :plus_tard)');
+
+    if ($protected == 1) {
+    //Requete insert pour protected_post
+    $protectedFriend = getPdo()->prepare('INSERT INTO protected_post (FK_id_post, FK_id_compte, id_friend) VALUES (:FK_id_post, :FK_id_compte, :id_friend)');
+    
+    $protectedFriend->execute([    //Execute l'insertion dans la table protected_post
+        'FK_id_post' => $id_post['UUID_post'],
+        'FK_id_compte' => $_SESSION['id_compte'],
+        'id_friend' => $id_friend['id_compte']
+    ]);
+    }
+
+
     $queryFav->execute([
         'id_post' => $id_post['UUID_post'],
         'id_membre' => $_SESSION['id_compte'],
         'favoris' => 0,
         'plus_tard' => 0,
     ]);
-   
-    $queryCate = getPdo()->prepare('INSERT INTO objet_categorie (FK_id_categorie, FK_id_post) 
-VALUES (:FK_id_categorie, :FK_id_post)');
-    //Requete insert pour protected_post
 
-    //Execute l'insertion dans la table favoris
     $queryCate->execute([
         'FK_id_categorie' => $categorie,
         'FK_id_post' => $id_post['UUID_post'],
