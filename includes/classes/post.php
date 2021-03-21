@@ -85,7 +85,7 @@ class post extends Member
         } elseif ($member->isLogged()) {
 
             $id_compte = (int)$_SESSION['id_compte'];
-
+            
             $result = getPdo()->prepare('SELECT * FROM post p 
             INNER JOIN compte c ON c.id_compte = p.FK_id_membre 
             INNER JOIN protected_post pp ON pp.FK_id_post = p.UUID_post
@@ -95,22 +95,24 @@ class post extends Member
 
             $result->execute(['id_compte' => $id_compte]);
         }
+            
+            if ($trie === 3) {
+                
+                $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
+                $result->execute(['id_compte' => $id_compte]);
+                
+                }
 
-        if ($trie === 3) {
-
-            $result = getPdo()->prepare('SELECT * FROM post p INNER JOIN compte c ON c.id_compte = p.FK_id_membre WHERE public = 1 OR private = 1 AND id_compte = :id_compte');
-            $result->execute(['id_compte' => $id_compte]);
-        } else if (isset($trie)) {
-            $result = getPdo()->prepare('SELECT * FROM compte c 
+            else if (isset($trie)) {
+                $result = getPdo()->prepare('SELECT * FROM compte c 
                 INNER JOIN post p ON c.id_compte = p.FK_id_membre
                 INNER JOIN objet_categorie ob ON ob.FK_id_post = p.UUID_post
                 INNER JOIN categorie cat ON cat.id_categorie = ob.FK_id_categorie
                 WHERE ob.FK_id_categorie = :id_categorie');
-            $result->execute([
-                'id_categorie' => $trie
-            ]);
-        }
-
+                $result->execute([
+                'id_categorie' => $trie]);
+            }
+            
 
         // Aucune erreur dans notre formulaire,
         // on crée le membre en BDD
@@ -141,79 +143,62 @@ class post extends Member
             }
             $i++;
 
-            if ($i === 1) {
-                print '<div class="row">';
-            }
-            print '<div class="col-sm-6">';
-            print '<div class="card">'; //Vérifier si le post est privé ou public
-            if ($row['image']) {
-                print '<img class="card-img-top" src="../upload/' . $row['image'] . '" alt="Card image cap">';
-            }
-            print '<div class="card-body">';
-            print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-            print '<button onclick="">Favoris</button>';
+                if ($i===1) {
+                    print '<div class="row">';
+                }
+                    print '<div class="col-sm-6">';
+                        print '<div class="card">';//Vérifier si le post est privé ou public
+                            if($row['image']){
+                                print '<img class="card-img-top" src="../upload/'.$row['image'].'" alt="Card image cap">';
+                            }
+                            print '<div class="card-body">'; 
+                                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
+                                print '<button onclick="">Favoris</button>'; 
 
-            if ($row['public'] == 1) {
-                echo '<img src="../webroot/img/users.png" height="30"/>';
-            } elseif ($row['private'] == 1) {
-                echo '<img src="../webroot/img/lock.png" height="30"/>';
-            } else {
-                echo '<img src="../webroot/img/friend.png" height="30"/>';
-            }
+                                if($row['public']==1){
+                                    echo '<img src="../webroot/img/users.png" height="30"/>';
+                                }elseif($row['private']==1){
+                                    echo '<img src="../webroot/img/lock.png" height="30"/>';
+                                }else{
+                                    echo '<img src="../webroot/img/friend.png" height="30"/>';
+                                }
+
 
             print '<p class="card-text">' . $row['contenu'] . '</p>';
             if ($member->isLogged()) {
+                $favoris->getFavorisIcon($UUID_post) == 0 ?
+                print '<button  name="btn_fav" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-star"></i></button>' :
+                print '<button name="btn_fav" value=' . $UUID_post . '  style="border:none;background-color:transparent;"><i class="bi bi-star-fill"></i></button>';
+                $favoris->getLaterIcon($UUID_post) == 0 ?   
+                print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-clock"></i></button>':
+                print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-check-circle"></i></button>';
+                
                 print '<form action="index.php?page=commentaire" method="post"> 
-                                        <input name="commentaire" type="hidden" value="' . $UUID_post . '" />';
-
-                if ($i === 1) {
-                    print '<div class="row">';
-                }
-                print '<div class="col-sm-6">';
-                print '<div class="card">'; //Vérifier si le post est privé ou public
-                if ($row['image']) {
-                    print '<img class="card-img-top" src="../upload/' . $row['image'] . '" alt="Card image cap">';
-                }
-                print '<div class="card-body">';
-                print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-
-
-
-                print '<p class="card-text">' . $row['contenu'] . '</p>';
-                if ($member->isLogged()) {
-                    $favoris->getFavorisIcon($UUID_post) == 0 ?
-                        print '<button  name="btn_fav" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-star"></i></button>' :
-                        print '<button name="btn_fav" value=' . $UUID_post . '  style="border:none;background-color:transparent;"><i class="bi bi-star-fill"></i></button>';
-                    $favoris->getLaterIcon($UUID_post) == 0 ?
-                        print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-clock"></i></button>' :
-                        print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-check-circle"></i></button>';
-
-                    print '<form action="index.php?page=commentaire" method="post"> 
                                         <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
                                         <input type="submit" value="Commentaire" /> 
                                         </form>';
 
-                    if ($member->get('pseudo') == $pseudo['pseudo']) {
-                        print '<form action="index.php?page=update" method="post"> 
+                if ($member->get('pseudo') == $pseudo['pseudo']) {
+                    print '<form action="index.php?page=update" method="post"> 
                                             <input name="update" type="hidden" value="' . $UUID_post . '" />  
                                             <input type="submit" value="Update" /> 
                                             </form>';
 
-                        print '<form action="index.php?page=delete" method="post">  
+                    print '<form action="index.php?page=delete" method="post">  
                                             <input name="delete" type="hidden" value="' . $UUID_post . '" /> 
                                             <input type="submit" value="Delete" /> 
                                             </form>';
-                    }
                 }
-
-                print '</div>';
-                print '</div>';
-                print '</div>';
             }
-            print '</form>';
+
+            print '</div>';
+            print '</div>';
             print '</div>';
         }
+        print '</form>';
+        print '</div>';
     }
+    
 
 
     public function pseudoo(int $id_membre): array
