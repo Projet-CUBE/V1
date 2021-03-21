@@ -124,7 +124,16 @@ class post extends Member
                             }
                             print '<div class="card-body">'; 
                                 print '<h5 class="card-title">' . $pseudo['pseudo'] . '</h5>';
-                                print '<button onclick="">Favoris</button>';  
+                                print '<button onclick="">Favoris</button>'; 
+
+                                if($row['public']==1){
+                                    echo '<img src="../webroot/img/users.png" height="30"/>';
+                                }elseif($row['private']==1){
+                                    echo '<img src="../webroot/img/lock.png" height="30"/>';
+                                }else{
+                                    echo '<img src="../webroot/img/friend.png" height="30"/>';
+                                }
+
                                 print '<p class="card-text">' . $row['contenu'] . '</p>';
                                     if($member->isLogged()){
                                         print '<form action="index.php?page=commentaire" method="post"> 
