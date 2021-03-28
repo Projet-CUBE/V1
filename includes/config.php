@@ -110,6 +110,11 @@ return [
             'title' => 'Download',
             'protected' => true,
         ],
+        'favoris' => [
+            'file' => 'favoris.php',
+            'title' => 'Favoris',
+            'protected' => true,
+        ],
         '404' => [
             'file' => '404.php',
             'title' => 'Page introuvable',

@@ -142,18 +142,22 @@ class post extends Member
 
             print '<p class="card-text">' . $row['contenu'] . '</p>';
             if ($member->isLogged()) {
+                print '<div>';
                 $favoris->getFavorisIcon($UUID_post) == 0 ?
                     print '<button  name="btn_fav" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-star"></i></button>' :
                     print '<button name="btn_fav" value=' . $UUID_post . '  style="border:none;background-color:transparent;"><i class="bi bi-star-fill"></i></button>';
                 $favoris->getLaterIcon($UUID_post) == 0 ?
                     print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-clock"></i></button>' :
                     print '<button name="btn_later" value=' . $UUID_post . ' style="border:none;background-color:transparent;"><i class="bi bi-check-circle"></i></button>';
+                print '</div>';
+                    
+                    print '</form>';
 
-                print '<form action="index.php?page=commentaire" method="post"> 
-                                        <input name="commentaire" type="hidden" value="' . $UUID_post . '" /> 
-                                        <input type="submit" value="Commentaire" /> 
-                                        </form>';
                 if ($member->get('pseudo') == $pseudo['pseudo']) {
+                    print '<form action="index.php?page=commentaire" method="post">';
+                    print '<input name="commentaire" type="hidden" value="' . $UUID_post . '"/>';
+                    print '<input type="submit" value="Commentaire" />';
+                    print '</form>';
                     print '<form action="index.php?page=update" method="post"> 
                                             <input name="update" type="hidden" value="' . $UUID_post . '" />  
                                             <input type="submit" value="Update" /> 

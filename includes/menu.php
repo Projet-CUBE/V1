@@ -30,14 +30,57 @@ if (isset($_SESSION['liste']) == NULL) {
 
               <?php if ($_SESSION['liste'] == "fr_fr"): ?>
                 <?php if ($member->isLogged()): ?>
-                  <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accueil")."</div>";?></a>
-                  <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistique")."</div>";?></a>
-                  <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestion des comptes")."</div>";?></a>
-                  <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Evènements")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profil")."</div>";?></a>
-                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
-                  <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Déconnexion")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                  
+                  <?php switch($droit->getDroitCompte()[0]): 
+                    case 1: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accueil")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistique")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestion des comptes")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Evènements")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoris")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Déconnexion")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+
+                    <?php case 2: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accueil")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistique")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestion des comptes")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Evènements")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoris")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Déconnexion")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+
+                    <?php case 3: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accueil")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistique")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestion des comptes")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Evènements")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoris")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Déconnexion")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+
+                    <?php case 4: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accueil")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistique")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestion des comptes")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Evènements")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoris")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Déconnexion")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                  <?php endswitch; ?>
+
                 <?php else: ?>
                   <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accueil")."</div>";?></a>
                   <a href="index.php?page=connexion" id="connexion"><?php echo "<div>".htmlentities("Connexion")."</div>";?></a>
@@ -46,14 +89,52 @@ if (isset($_SESSION['liste']) == NULL) {
 
               <?php elseif ($_SESSION['liste'] == "en_us"): ?>
                 <?php if ($member->isLogged()): ?>
-                  <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Home")."</div>";?></a>
-                  <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistics")."</div>";?></a>
-                  <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Account management")."</div>";?></a>
-                  <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Events")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profile")."</div>";?></a>
-                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
-                  <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnection")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                  <?php switch($droit->getDroitCompte()[0]): 
+                    case 1: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Home")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistics")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Account management")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Events")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profile")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favorites")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnection")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 2: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Home")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistics")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Account management")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Events")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profile")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favorites")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnection")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 3: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Home")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistics")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Account management")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Events")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profile")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favorites")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnection")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 4: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Home")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistics")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Account management")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Events")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profile")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categories")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favorites")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnection")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                  <?php endswitch; ?>
                 <?php else: ?>
                   <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Home")."</div>";?></a>
                   <a href="index.php?page=connexion" id="connexion"><?php echo "<div>".htmlentities("Connection")."</div>";?></a>
@@ -62,14 +143,52 @@ if (isset($_SESSION['liste']) == NULL) {
 
               <?php elseif ($_SESSION['liste'] == "es_es"): ?>
                 <?php if ($member->isLogged()): ?>
-                  <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Bienvenida")."</div>";?></a>
-                  <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Estadístico")."</div>";?></a>
-                  <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Administración de cuentas")."</div>";?></a>
-                  <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventos")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Perfil")."</div>";?></a>
-                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorías")."</div>";?></a>
-                  <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Desconexión")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                  <?php switch($droit->getDroitCompte()[0]): 
+                    case 1: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Bienvenida")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Estadístico")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Administración de cuentas")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventos")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Perfil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorías")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoritos")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Desconexión")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 2: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Bienvenida")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Estadístico")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Administración de cuentas")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventos")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Perfil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorías")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoritos")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Desconexión")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 3: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Bienvenida")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Estadístico")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Administración de cuentas")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventos")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Perfil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorías")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoritos")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Desconexión")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 4: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Bienvenida")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Estadístico")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Administración de cuentas")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventos")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Perfil")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorías")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Favoritos")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Desconexión")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                  <?php endswitch; ?>
                 <?php else: ?>
                   <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Bienvenida")."</div>";?></a>
                   <a href="index.php?page=connexion" id="connexion"><?php echo "<div>".htmlentities("Conexión")."</div>";?></a>
@@ -78,14 +197,52 @@ if (isset($_SESSION['liste']) == NULL) {
 
               <?php elseif ($_SESSION['liste'] == "it_it"): ?>
                 <?php if ($member->isLogged()): ?>
-                  <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accoglienza")."</div>";?></a>
-                  <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistica")."</div>";?></a>
-                  <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestione contabile")."</div>";?></a>
-                  <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventi")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profilo")."</div>";?></a>
-                  <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorie")."</div>";?></a>
-                  <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnessione")."</div>";?></a>
-                  <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                  <?php switch($droit->getDroitCompte()[0]): 
+                    case 1: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accoglienza")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistica")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestione contabile")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventi")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profilo")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorie")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Preferiti")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnessione")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 2: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accoglienza")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistica")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestione contabile")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventi")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profilo")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorie")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Preferiti")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnessione")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 3: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accoglienza")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistica")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestione contabile")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventi")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profilo")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorie")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Preferiti")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnessione")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                    <?php case 4: ?>
+                      <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accoglienza")."</div>";?></a>
+                      <a href="index.php?page=statistique" id="statistique"><?php echo "<div>".htmlentities("Statistica")."</div>";?></a>
+                      <a href="index.php?page=gestion-comptes" id="gestion-comptes"><?php echo "<div>".htmlentities("Gestione contabile")."</div>";?></a>
+                      <a href="index.php?page=evenements" id="evenements"><?php echo "<div>".htmlentities("Eventi")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?php echo "<div>".htmlentities("Profilo")."</div>";?></a>
+                      <a href="index.php?page=insertCategories" id="categories"><?php echo "<div>".htmlentities("Categorie")."</div>";?></a>
+                      <a href="index.php?page=favoris" id="favoris"><?php echo "<div>".htmlentities("Preferiti")."</div>";?></a>
+                      <a href="index.php?page=deconnexion" id="deconnexion"><?php echo "<div>".htmlentities("Disconnessione")."</div>";?></a>
+                      <a href="index.php?page=profil" id="profil"><?= $member->get('pseudo')?></a>
+                    <?php break; ?>
+                  <?php endswitch; ?>
                 <?php else: ?>
                   <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accoglienza")."</div>";?></a>
                   <a href="index.php?page=connexion" id="connexion"><?php echo "<div>".htmlentities("Connessione")."</div>";?></a>
@@ -93,6 +250,7 @@ if (isset($_SESSION['liste']) == NULL) {
                 <?php endif; ?>
 
               <?php endif; ?>
+
                 <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
