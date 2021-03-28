@@ -16,7 +16,7 @@ body {
 
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #03989E;
 }
 
 .topnav a {
@@ -68,7 +68,7 @@ body {
     <title><?= $page_title; ?></title>
 </head>
 <body>
-    <?php require '../includes/menu.php'; ?>
+    <?php require '../includes/menu.php';?>
 
     <div class="container">
         <div class="row">
@@ -94,4 +94,5 @@ function myFunction() {
 }
 </script>
 </body>
+<?php require '../includes/footer.php'?>
 </html>

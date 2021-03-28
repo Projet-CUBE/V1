@@ -15,19 +15,23 @@ if (isset($_SESSION['liste']) == NULL) {
 } 
  ?>
 
-<div class="topnav" id="myTopnav">
-        <a class="navbar-brand" href="#">Projet CUBE</a>
-
-        <form action="#" method="post">
-        <select id="liste" name="liste" class="form-select" aria-label="Default select example">
-          <option value="fr_fr">Français</option>
-          <option value="en_us">Anglais</option>
-          <option value="es_es">Espagnol</option>
-          <option value="it_it">Italien</option>
-        </select>
-        <button type="submit" >Langue</button>
+<nav class="topnav" id="myTopnav">
+      <div class="container">
+        <a class="navbar-brand"><img src="../webroot/img/projet_logo.png" height="150px"/></a>
+      
+      
+        <form action="#" method="post" >
+        <div>
+            <select id="liste" name="liste" class="form-select" aria-label="Default select example">
+              <option value="fr_fr">Français</option>
+              <option value="en_us">Anglais</option>
+              <option value="es_es">Espagnol</option>
+              <option value="it_it">Italien</option>
+            </select>
+            <button type="submit" >Langue</button>
+          </div>
         </form>
-
+      
               <?php if ($_SESSION['liste'] == "fr_fr"): ?>
                 <?php if ($member->isLogged()): ?>
                   <a href="index.php?page=accueil" id="accueil"><?php echo "<div>".htmlentities("Accueil")."</div>";?></a>
@@ -94,9 +98,10 @@ if (isset($_SESSION['liste']) == NULL) {
 
               <?php endif; ?>
                 <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-</div>    
+                  <i class="fa fa-bars"></i>
+                </a>
+      </div>
+</nav>    
 
 <script>    
 
