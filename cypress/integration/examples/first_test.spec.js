@@ -31,4 +31,9 @@ context('Actions', () => {
                 .should('equal', Cypress.env('errorMessage'))
         })
     })
+    it('Fill and submit', () => {
+        cy.get('#pseudo').type('AnissEstSubjugué')
+        cy.get('#submit-btn').click()
+        cy.get('#error-email').should('contain', 'Cet email est déjà utilisé')
+    })
 })
