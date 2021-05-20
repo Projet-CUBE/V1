@@ -8,3 +8,5 @@ webroot/css/boutons.css
 *.xml
 config/conf.php
 config/conf.php
+node_modules
+node_modules/

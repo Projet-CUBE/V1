@@ -59,7 +59,7 @@ if (isset($_POST['pseudo']) && isset($_POST['email']))
 
 <?php if (false === isset($registered)): ?>
 
-<form action="index.php?page=inscription" method="POST">
+<form id="form-validation" action="index.php?page=inscription" method="POST">
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="form-group">
@@ -76,7 +76,7 @@ if (isset($_POST['pseudo']) && isset($_POST['email']))
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" class="form-control" value="<?= $form->get('email'); ?>" required>
                 <?php if ($errors->has('email')): ?>
-                    <p class="text-danger"><?= $errors->get('email') ?></p>
+                    <p id='error-email' class="text-danger"><?= $errors->get('email') ?></p>
                 <?php endif; ?>
             </div>
         </div>
@@ -101,7 +101,7 @@ if (isset($_POST['pseudo']) && isset($_POST['email']))
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-3">Envoyer</button>
+    <button id="submit-btn" type="submit" class="btn btn-primary mt-3">Envoyer</button>
 </form>
 
 <?php else: ?>
