@@ -23,3 +23,9 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+export function connexion() {
+    cy.get('#pseudo').type('ABABABBA')
+    cy.get('#password').type('ABABABBA')
+    cy.get('#submit-btn').click()
+}

@@ -1,9 +1,10 @@
 {
-  "dependencies": {
-    "bootstrap-icons": "^1.4.0"
-  },
-  "devDependencies": {
-    "cypress": "^7.3.0",
-    "start-server-and-test": "^1.12.2"
-  }
+    "dependencies": {
+        "bootstrap-icons": "^1.4.0"
+    },
+    "devDependencies": {
+        "cypress": "^7.3.0",
+        "cypress-sql-server": "^1.0.0",
+        "start-server-and-test": "^1.12.2"
+    }
 }
