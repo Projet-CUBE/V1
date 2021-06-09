@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Actions', () => {
+context('Remplir et tester l\'inscription', () => {
     before(() => {
         cy.visit('http://localhost/cesi/V1-main/webroot/')
     })
