@@ -1,0 +1,13 @@
+{
+    "baseUrl": "http://localhost/phpmyadmin/",
+    "db": {
+        "userName": "root",
+        "password": "",
+        "server": "localhost\\phpmyadmin",
+        "options": {
+            "database": "sql",
+            "encrypt": true,
+            "rowCollectionOnRequestCompletion": true
+        }
+    }
+}
