@@ -74,7 +74,7 @@ body {
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <h3 class="card-header">Bonjour <strong><?= $member->get('pseudo') ?></strong> !</h3>
+                    <h3 id="card-header" class="card-header">Bonjour <strong><?= $member->get('pseudo') ?></strong> !</h3>
                     <div class="card-body">
                         <?= $page_content; ?>
                     </div>

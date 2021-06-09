@@ -1,28 +1,25 @@
 /// <reference types="cypress" />
+import { connexion } from "../../support/commands.js"
 
-context('Remplir et tester l\'inscription', () => {
+
+const tabTopside = ["Déconnexion", "Favoris", "Categories", "Evènements", "Profil", "Statistique", "Gestion des comptes", "Accueil"]
+
+context('Remplir et tester la connexion', () => {
     before(() => {
         cy.visit('http://localhost/cesi/V1-main/webroot/')
+        cy.get('#connexion').click()
     })
 
     // https://on.cypress.io/interacting-with-elements
 
-    it('Check Catégorie', () => {
-        cy.get('select#categorie').select('Développement personnel').should('have.value', '6')
-        cy.get('#inscription').click()
-    })
     it('Check errors form', () => {
-        // cy.get('#pseudo').type('AnissEstSubjugué')
-        cy.get('#email').type('aaa@gmail.com')
         cy.get('#password').type('123344')
-        cy.get('#password_confirm').type('123344')
         cy.get('#submit-btn').click()
         cy.get('input:invalid').should('have.length', 1)
         cy.get('input:invalid').then((response) => {
             console.log('response:', response)
             console.log('error message:', response[0].form[0].attributes[4].ownerElement.validationMessage)
             Cypress.env('errorMessage', response[0].form[0].attributes[4].ownerElement.validationMessage)
-                // 
         })
     })
     it('validationMessage', () => {
@@ -30,17 +27,24 @@ context('Remplir et tester l\'inscription', () => {
             cy.get('#pseudo').invoke('prop', 'validationMessage')
                 .should('equal', Cypress.env('errorMessage'))
         })
+    })
+
+    it('Fill and submit with no rights\'s user', () => {
         cy.get('#pseudo').type('AnissEstSubjugué')
         cy.get('#submit-btn').click()
-        cy.get('#error-email').should('contain', 'Cet email est déjà utilisé')
+        cy.get('#card-header').contains('AnissEstSubjugué')
+        tabTopside.forEach((element) => {
+            cy.get('#myTopnav').should('not.have.value', element)
+        })
     })
-    it('Fill and submit', () => {
-        cy.get('#pseudo').invoke('attr', 'value', 'AnissEstSubjugué')
-        cy.get('#email').invoke('attr', 'value', 'aaad@gmail.com')
-        cy.get('#password').type('123344')
-        cy.get('#password_confirm').type('123344')
-        cy.get('#submit-btn').click()
-        cy.sqlServer('SELECT * FROM compte');
 
+    it('Déconnexion et connexion avec un utilisateur ayant tous les droits', () => {
+
+        cy.visit('http://localhost/cesi/V1-main/webroot/index.php?page=deconnexion')
+        connexion()
+        cy.get('#card-header').contains('ABABABBA')
+        tabTopside.forEach((element) => {
+            cy.get('#myTopnav').contains(element)
+        })
     })
 })

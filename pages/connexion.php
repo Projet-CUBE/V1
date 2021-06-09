@@ -40,7 +40,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 
 <?php if ($member->isLogged() === false) : ?>
 
-    <form action="index.php?page=connexion" method="POST">
+    <form id="form-validation" action="index.php?page=connexion" method="POST">
         <div class="form-group">
             <label for="pseudo">Pseudo</label>
             <input type="text" name="pseudo" id="pseudo" class="form-control" value="<?= $form->get('pseudo'); ?>" required>
@@ -59,7 +59,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
             <label class="form-check-label" for="checkbox">Connexion automatique</label>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Envoyer</button>
+        <button id="submit-btn" type="submit" class="btn btn-primary mt-3">Envoyer</button>
     </form>
 
 <?php else : ?>
