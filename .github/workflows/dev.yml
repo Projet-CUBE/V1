@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: DEV
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ DEV ]
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # Test
+  # ...
+  
+  # deploy
+  deploy:
+    name: "Déploiement sur le serveur de dev"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/serveurDev.key
+          chmod 600 ~/.ssh/serveurDev.key
+          cat >>~/.ssh/config <<END
+          Host serveurDev
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/serveurDev.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      - name: Pull les dernières versions de DEV
+        run: ssh serveurDev 'cd /home/formation3/web/formation3.liliwol.fr/public_html/CUBE && git fetch && git pull'
