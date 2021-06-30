@@ -162,7 +162,7 @@ class Member
     protected static function generateHash(array $infos): string
     {
         // Explication : https://www.php.net/manual/fr/function.sha1.php
-        return sha1($infos['id_compte'] . $infos['pseudo'] . self::$salt);
+        return hash("sha512", ($infos['id_compte'] . $infos['pseudo'] . self::$salt));
     }
 
     /**
