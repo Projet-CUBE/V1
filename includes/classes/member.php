@@ -163,6 +163,7 @@ class Member
     {
         // Explication : https://www.php.net/manual/fr/function.sha1.php
         return hash("sha512", ($infos['id_compte'] . $infos['pseudo'] . self::$salt));
+     
         
     }
 
