@@ -16,7 +16,8 @@ jobs:
   deploy:
     name: "Déploiement sur le serveur de dev"
     runs-on: ubuntu-latest
-    
+    # what is serveurKey ? 
+    # what is StrictHostKeyChecking && IdentifyFile ?
     steps:
       - name: Configure SSH
         run: |
@@ -36,4 +37,4 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: Pull les dernières versions de DEV
-        run: ssh serveurDev 'cd /home/formation3/web/formation3.liliwol.fr/public_html/CUBE && git fetch && git pull'
+        run: ssh serveurDev 'cd /home/devg2/web/devg2.liliwol.fr/public_html/CUBE && git fetch && git pull'
