@@ -36,4 +36,4 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: Pull les dernières versions de DEV
-        run: ssh serveurDev 'cd /home/formation3/web/formation3.liliwol.fr/public_html/CUBE && git fetch && git pull'
+        run: ssh serveurDev 'cd /home/devg2/web/devg2.liliwol.fr/public_html/CUBE && git fetch && git pull'
