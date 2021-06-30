@@ -1,0 +1,35 @@
+# Workflow pour un déploiement sur un serveur de PROD
+name: DeploiementServeurProd
+
+# Evenement qui va déclencher ce script
+# Lors d'un événement manuel
+on: [workflow_dispatch]
+
+# Liste de JOBS exécutés séquentiellement ou en parallèle
+jobs:
+  
+  # deploiement
+  deploy:
+    name: "Déploiement sur le serveur de prod"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/ 
+          echo "$SSH_KEY_PROD" > ~/.ssh/serveurProd.key
+          chmod 600 ~/.ssh/serveurProd.key
+          cat >>~/.ssh/config <<END
+          Host serveurProd
+            HostName $SSH_HOST_PROD
+            User $SSH_USER_PROD
+            IdentityFile ~/.ssh/serveurProd.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER_PROD: ${{ secrets.SSH_USER_PROD }}
+          SSH_KEY_PROD: ${{ secrets.SSH_KEY_PROD }}
+          SSH_HOST_PROD: ${{ secrets.SSH_HOST_PROD }}
+
+      - name: Pull les dernières versions de PROD
+        run: ssh serveurProd 'cd /home/prodg2/web/prodg2.liliwol.fr/public_html/CUBE && git fetch && git pull'
