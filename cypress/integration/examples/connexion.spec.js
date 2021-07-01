@@ -13,7 +13,7 @@ context('Remplir et tester la connexion', () => {
     // https://on.cypress.io/interacting-with-elements
 
     it('Check errors form', () => {
-        cy.get('#password').type('1233dd44')
+        cy.get('#password').type('123344')
         cy.get('#submit-btn').click()
         cy.get('input:invalid').should('have.length', 1)
         cy.get('input:invalid').then((response) => {

@@ -40,7 +40,6 @@ context('Remplir et tester l\'inscription', () => {
         cy.get('#password').type('123344')
         cy.get('#password_confirm').type('123344')
         cy.get('#submit-btn').click()
-        cy.sqlServer('SELECT * FROM compte');
-
+            //cy.sqlServer('SELECT * FROM compte');
     })
 })
